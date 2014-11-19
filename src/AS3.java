@@ -167,25 +167,23 @@ public class AS3 {
 	}
 	
 	// Method for Linear Search
-	public static void linearSearch() {
-		System.out.print("What number would you like to find? ");
-		int numberToFind = inConsole.nextInt();
+	public static int linearSearch(String[] inSet, String wordToFind) {
 		boolean found = false;
 		int foundAtIndex = 0;
 		
 		// Search each slot in the array by comparing the number to find against the current number in the array.
-		for (int i = 0; i < sortedNumberSet.length; i++) {
-			if (numberToFind == sortedNumberSet[i]) {
+		for (int i = 0; i < inSet.length; i++) {
+			if (wordToFind == inSet[i]) {
 				found = true;
 				foundAtIndex = i;
 				break;
 			}
 		}
 		
-		if (found == true) {
-			System.out.println("The number " + numberToFind + " was found at index location " + foundAtIndex);
+		if (found) {
+			return foundAtIndex;
 		} else {
-			System.out.println("Sorry, your number was not found.");
+			return -1;
 		}
 	}
 }
