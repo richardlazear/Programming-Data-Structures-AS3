@@ -146,6 +146,8 @@ public class AS3 {
 			System.out.println("i: " + i);
 			if (inSet[i].equals(inSet[i - 1])) {
 				inSet[i] = null;
+				// TODO: track the recurring word with a RecurringWord object
+				
 				// Bring all the strings in the remaining slots down into the previous slot
 				for (int j = i; j < inSet.length - 1; j++) {
 					inSet[j] = inSet[j + 1];
