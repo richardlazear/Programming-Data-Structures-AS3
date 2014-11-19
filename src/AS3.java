@@ -17,6 +17,7 @@ import java.util.Timer;
 public class AS3 {
 	// Instance Fields
 	// private static String[] reducedWordSet;
+	private static String[] wordSet;
 	private static RecurringWord[] wordTracker;
 	
 	public static void main(String[] args)  throws FileNotFoundException {
@@ -44,19 +45,16 @@ public class AS3 {
 				inFile = new Scanner(AS3large);
 			break;
 		}
-		
-		String[] wordSet;
+
 		// Read in the file
 		int wordSetLength = inFile.nextInt();
 		wordSet = new String[wordSetLength];
 		for (int i = 0; i < wordSetLength; i++) {
 			wordSet[i] = inFile.next();
-			System.out.println(wordSet[i]);
+			// System.out.println(wordSet[i]);
 			// TODO: add in code for when a duplicate word is detected
 		}
 		// End reading in the file
-		
-		removeDuplicateWords(wordSet);
 		
 		System.out.println("--------------Menu--------------");
 		System.out.println("1. Comparison Table of Sorts");
@@ -132,38 +130,6 @@ public class AS3 {
 				System.exit(0);
 			break;
 		}
-	}
-
-	public static void removeDuplicateWords(String[] inSet) {
-		quickSort(inSet, 0, inSet.length - 1);
-		for (int i = 0; i < inSet.length; i++) {
-			System.out.print(inSet[i] + " - ");
-		}
-		System.out.println();
-		
-		int reducedArrayCount = 0; // Tracks the number of slots needed in the array without duplicate words
-		for (int i = 1; i < inSet.length; i++) {			
-			System.out.println("i: " + i);
-			if (inSet[i].equals(inSet[i - 1])) {
-				inSet[i] = null;
-				// TODO: track the recurring word with a RecurringWord object
-				
-				// Bring all the strings in the remaining slots down into the previous slot
-				for (int j = i; j < inSet.length - 1; j++) {
-					inSet[j] = inSet[j + 1];
-					inSet[j + 1] = null;
-					System.out.print(inSet[j] + " - ");
-				}
-				System.out.println();
-			} else {
-				reducedArrayCount++;
-			}
-		}
-		System.out.println("reducedArrayCount: " + reducedArrayCount);
-		for (int i = 0; i < inSet.length; i++) {
-			System.out.print(inSet[i] + " - ");
-		}
-		System.out.println();
 	}
 	
 	public static void quickSort(String[] inSet, int start, int end) {
