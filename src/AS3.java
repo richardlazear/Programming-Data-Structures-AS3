@@ -17,7 +17,7 @@ import java.util.Timer;
 public class AS3 {
 	// Instance Fields
 	// private static String[] reducedWordSet;
-	private static String[] wordSet;
+	
 	private static RecurringWord[] wordTracker;
 	
 	public static void main(String[] args)  throws FileNotFoundException {
@@ -46,13 +46,19 @@ public class AS3 {
 			break;
 		}
 
+		String[] wordSet;
+		
 		// Read in the file
 		int wordSetLength = inFile.nextInt();
 		wordSet = new String[wordSetLength];
 		for (int i = 0; i < wordSetLength; i++) {
-			wordSet[i] = inFile.next();
-			// System.out.println(wordSet[i]);
-			// TODO: add in code for when a duplicate word is detected
+			String word = inFile.next();
+			if (linearSearch(wordSet, word) >= 0) {
+				// TODO: increment this word object's count in the other array
+			} else {
+				wordSet[i] = word;
+				// TODO: add this word (with a count of 1) to the other really
+			}
 		}
 		// End reading in the file
 		
@@ -158,5 +164,28 @@ public class AS3 {
 		inSet[end] = temp;
 		
 		return partitionIndex;
+	}
+	
+	// Method for Linear Search
+	public static void linearSearch() {
+		System.out.print("What number would you like to find? ");
+		int numberToFind = inConsole.nextInt();
+		boolean found = false;
+		int foundAtIndex = 0;
+		
+		// Search each slot in the array by comparing the number to find against the current number in the array.
+		for (int i = 0; i < sortedNumberSet.length; i++) {
+			if (numberToFind == sortedNumberSet[i]) {
+				found = true;
+				foundAtIndex = i;
+				break;
+			}
+		}
+		
+		if (found == true) {
+			System.out.println("The number " + numberToFind + " was found at index location " + foundAtIndex);
+		} else {
+			System.out.println("Sorry, your number was not found.");
+		}
 	}
 }
