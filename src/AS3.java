@@ -16,9 +16,7 @@ import java.util.Timer;
 
 public class AS3 {
 	// Instance Fields
-	// private static String[] reducedWordSet;
-	
-	private static RecurringWord[] wordTracker;
+
 	
 	public static void main(String[] args)  throws FileNotFoundException {
 		// Program introduction for the user
@@ -46,18 +44,17 @@ public class AS3 {
 			break;
 		}
 
-		String[] wordSet;
+		// Create the array
+		Word[] wordSet = new Word[inFile.nextInt()];
 		
 		// Read in the file
-		int wordSetLength = inFile.nextInt();
-		wordSet = new String[wordSetLength];
-		for (int i = 0; i < wordSetLength; i++) {
+		for (int i = 0; i < wordSet.length; i++) {
 			String word = inFile.next();
 			if (linearSearch(wordSet, word) >= 0) {
+				
 				// TODO: increment this word object's count in the other array
 			} else {
-				wordSet[i] = word;
-				// TODO: add this word (with a count of 1) to the other really
+				// TODO: add this word (with a count of 1) to the other array
 			}
 		}
 		// End reading in the file
@@ -136,9 +133,11 @@ public class AS3 {
 				System.exit(0);
 			break;
 		}
+		
+		inConsole.close();
 	}
 	
-	public static void quickSort(String[] inSet, int start, int end) {
+	public static void quickSort(Word[] inSet, int start, int end) {
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
 		if (start < end) {
 			int partitionIndex = quickPartition(inSet, start, end);
@@ -147,33 +146,33 @@ public class AS3 {
 		}
 	}
 	
-	public static int quickPartition(String[] inSet, int start, int end) {
+	public static int quickPartition(Word[] inSet, int start, int end) {
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
-		String pivot = inSet[end];
+		String pivot = inSet[end].getWord();
 		int partitionIndex = start;
 		for (int i = start; i <= end - 1; i++) {
-			if (inSet[i].compareTo(pivot) < 0){
-				String temp = inSet[partitionIndex];
-				inSet[partitionIndex] = inSet[i];
-				inSet[i] = temp;
+			if (inSet[i].getWord().compareTo(pivot) < 0){
+				String temp = inSet[partitionIndex].getWord();
+				inSet[partitionIndex].writeWord(inSet[i].getWord());
+				inSet[i].writeWord(temp);
 				partitionIndex++;
 			}
 		}
-		String temp = inSet[partitionIndex];
+		String temp = inSet[partitionIndex].getWord();
 		inSet[partitionIndex] = inSet[end];
-		inSet[end] = temp;
+		inSet[end].writeWord(temp);
 		
 		return partitionIndex;
 	}
 	
 	// Method for Linear Search
-	public static int linearSearch(String[] inSet, String wordToFind) {
+	public static int linearSearch(Word[] inSet, String wordToFind) {
 		boolean found = false;
 		int foundAtIndex = 0;
 		
 		// Search each slot in the array by comparing the number to find against the current number in the array.
 		for (int i = 0; i < inSet.length; i++) {
-			if (wordToFind == inSet[i]) {
+			if (wordToFind == inSet[i].getWord()) {
 				found = true;
 				foundAtIndex = i;
 				break;
