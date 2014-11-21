@@ -45,23 +45,23 @@ public class AS3 {
 		}
 
 		// Create the array
-		int wordSetLength = inFile.nextInt();
-		System.out.println(wordSetLength);
-		Word[] wordSet = new Word[wordSetLength];
+		// int wordSetLength = inFile.nextInt();
+		// System.out.println(wordSetLength);
+		Word[] wordSet = new Word[9];
 		
 		// Read in the file
-		for (int i = 0; i < wordSet.length; i++) {
+		wordSet[0] = new Word(inFile.next());
+		for (int i = 1; i < 9; i++) {
 			String word = inFile.next();
 			if (linearSearch(wordSet, word) >= 0) {
 				wordSet[i].addToCount();
 			} else {
 				wordSet[i] = new Word(word);
+				System.out.println(wordSet[i].getWord());
 			}
+			System.out.println("first run");
 		}
 		// End reading in the file
-		for (int i = 0; i < wordSet.length; i++) {
-			System.out.println(wordSet[i]);
-		}
 		
 		System.out.println("--------------Menu--------------");
 		System.out.println("1. Comparison Table of Sorts");
@@ -175,13 +175,17 @@ public class AS3 {
 		int foundAtIndex = 0;
 		
 		// Search each slot in the array by comparing the number to find against the current number in the array.
-		for (int i = 0; i < inSet.length; i++) {
-			if (wordToFind == inSet[i].getWord()) {
+		for (int i = 0; i < 9; i++) {
+			System.out.println(i);
+			System.out.println(inSet[i].getWord());
+			// String wordToTest = inSet[i].getWord();
+			/*if (wordToFind.equals(wordToTest)) {
 				found = true;
 				foundAtIndex = i;
 				break;
-			}
+			}*/
 		}
+		System.out.println();
 		
 		if (found) {
 			return foundAtIndex;
