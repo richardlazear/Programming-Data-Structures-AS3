@@ -45,19 +45,23 @@ public class AS3 {
 		}
 
 		// Create the array
-		Word[] wordSet = new Word[inFile.nextInt()];
+		int wordSetLength = inFile.nextInt();
+		System.out.println(wordSetLength);
+		Word[] wordSet = new Word[wordSetLength];
 		
 		// Read in the file
 		for (int i = 0; i < wordSet.length; i++) {
 			String word = inFile.next();
 			if (linearSearch(wordSet, word) >= 0) {
-				
-				// TODO: increment this word object's count in the other array
+				wordSet[i].addToCount();
 			} else {
-				// TODO: add this word (with a count of 1) to the other array
+				wordSet[i] = new Word(word);
 			}
 		}
 		// End reading in the file
+		for (int i = 0; i < wordSet.length; i++) {
+			System.out.println(wordSet[i]);
+		}
 		
 		System.out.println("--------------Menu--------------");
 		System.out.println("1. Comparison Table of Sorts");
