@@ -175,11 +175,11 @@ public class AS3 {
 		for (int i = 1; i < sortedWordSet.length; i++) {
 			String valueToSort = sortedWordSet[i].getWord();
 			int j = i;
-			while (j > 0 && sortedWordSet[j - 1] > valueToSort) {
+			while (j > 0 && sortedWordSet[j - 1].getWord().compareTo(valueToSort) > 0) {
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				j--;
 			}
-			sortedWordSet[j].writeWord(valueToSort);
+			sortedWordSet[j] = sortedWordSet[i];
 			
 			// sorted = true;
 		}
