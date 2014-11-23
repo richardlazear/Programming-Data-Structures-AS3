@@ -170,6 +170,21 @@ public class AS3 {
 		}
 	}
 	
+	// Method for Insertion Sort
+	public static void insertionSort() {	
+		for (int i = 1; i < sortedWordSet.length; i++) {
+			String valueToSort = sortedWordSet[i].getWord();
+			int j = i;
+			while (j > 0 && sortedWordSet[j - 1] > valueToSort) {
+				sortedWordSet[j] = sortedWordSet[j - 1];
+				j--;
+			}
+			sortedWordSet[j].writeWord(valueToSort);
+			
+			// sorted = true;
+		}
+	}
+	
 	public static void quickSort(Word[] inSet, int start, int end) {
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
 		if (start < end) {
