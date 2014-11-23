@@ -16,7 +16,7 @@ import java.util.Timer;
 
 public class AS3 {
 	// Instance Fields
-
+	private static Word[] sortedWordSet;
 	
 	public static void main(String[] args)  throws FileNotFoundException {
 		// Program introduction for the user
@@ -43,14 +43,9 @@ public class AS3 {
 				inFile = new Scanner(AS3large);
 			break;
 		}
-
-		// Create the array
-		// int wordSetLength = inFile.nextInt();
-		// System.out.println(wordSetLength);
-		Word[] wordSet = new Word[9];
 		
 		// Read in the file
-		wordSet[0] = new Word(inFile.next());
+		/*wordSet[0] = new Word(inFile.next());
 		for (int i = 1; i < 9; i++) {
 			String word = inFile.next();
 			if (linearSearch(wordSet, word) >= 0) {
@@ -60,7 +55,7 @@ public class AS3 {
 				System.out.println(wordSet[i].getWord());
 			}
 			System.out.println("first run");
-		}
+		}*/
 		// End reading in the file
 		
 		System.out.println("--------------Menu--------------");
@@ -90,7 +85,8 @@ public class AS3 {
 				int sortSelection = inConsole.nextInt();
 				switch (sortSelection) {
 					case 1:
-						
+						// System.out.println("prior to method call");
+						// System.out.println("after method call");
 					break;
 					case 2:
 						
@@ -142,35 +138,35 @@ public class AS3 {
 	}
 	
 	// Method for Selection Sort
-	public static void selectionSort(int[] inSet) {
-		// Copy the original number set into another set to preserve the original order of the numbers so that other sort methods can be used.
-		for (int i = 0; i < inSet.length; i++) {
-			sortedNumberSet[i] = inSet[i];
-		}
-		
-		
+	public static void selectionSort() {	
 		int minIndex = 0;
-		for (int i = 0; i < sortedNumberSet.length - 1; i++) {
+		for (int i = 0; i < sortedWordSet.length - 1; i++) {
 			minIndex = i;
-			for (int j = i + 1; j < sortedNumberSet.length; j++) {
-				if (sortedNumberSet[j] < sortedNumberSet[minIndex]) {
+			for (int j = i + 1; j < sortedWordSet.length; j++) {
+				String toCompareJ = sortedWordSet[j].getWord();
+				System.out.println(toCompareJ);
+				if (toCompareJ.compareTo(sortedWordSet[minIndex].getWord()) < 0) {
+					System.out.println("sortedWordSet[j] is less than sortedWordSet[minIndex]");
 					minIndex = j;
 				}
 			}
-			if (sortedNumberSet[minIndex] < sortedNumberSet[i]) {
-				int temp = sortedNumberSet[i];
-				sortedNumberSet[i] = sortedNumberSet[minIndex];
-				sortedNumberSet[minIndex] = temp;
+
+			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) {
+				System.out.println("does it get here?");
+				String temp = sortedWordSet[i].getWord();
+				sortedWordSet[i].writeWord(sortedWordSet[minIndex].getWord());
+				sortedWordSet[minIndex].writeWord(temp);
 			} else {
 				break;
 			}
+			
 			// Print the progression lines
-			for (int p = 0; p < sortedNumberSet.length; p++) {
-				System.out.print(sortedNumberSet[p] + " ");
+			for (int p = 0; p < sortedWordSet.length; p++) {
+				System.out.print(sortedWordSet[p].getWord() + " ");
 			}
 			System.out.println();
 			
-			sorted = true;
+			// sorted = true;*/
 		}
 	}
 	
