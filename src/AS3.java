@@ -141,6 +141,39 @@ public class AS3 {
 		inConsole.close();
 	}
 	
+	// Method for Selection Sort
+	public static void selectionSort(int[] inSet) {
+		// Copy the original number set into another set to preserve the original order of the numbers so that other sort methods can be used.
+		for (int i = 0; i < inSet.length; i++) {
+			sortedNumberSet[i] = inSet[i];
+		}
+		
+		
+		int minIndex = 0;
+		for (int i = 0; i < sortedNumberSet.length - 1; i++) {
+			minIndex = i;
+			for (int j = i + 1; j < sortedNumberSet.length; j++) {
+				if (sortedNumberSet[j] < sortedNumberSet[minIndex]) {
+					minIndex = j;
+				}
+			}
+			if (sortedNumberSet[minIndex] < sortedNumberSet[i]) {
+				int temp = sortedNumberSet[i];
+				sortedNumberSet[i] = sortedNumberSet[minIndex];
+				sortedNumberSet[minIndex] = temp;
+			} else {
+				break;
+			}
+			// Print the progression lines
+			for (int p = 0; p < sortedNumberSet.length; p++) {
+				System.out.print(sortedNumberSet[p] + " ");
+			}
+			System.out.println();
+			
+			sorted = true;
+		}
+	}
+	
 	public static void quickSort(Word[] inSet, int start, int end) {
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
 		if (start < end) {
