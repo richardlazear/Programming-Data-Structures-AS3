@@ -200,15 +200,15 @@ public class AS3 {
 		int partitionIndex = start;
 		for (int i = start; i <= end - 1; i++) {
 			if (inSet[i].getWord().compareTo(pivot) < 0){
-				String temp = inSet[partitionIndex].getWord();
-				inSet[partitionIndex].writeWord(inSet[i].getWord());
-				inSet[i].writeWord(temp);
+				Word temp = inSet[partitionIndex];
+				inSet[partitionIndex] = inSet[i];
+				inSet[i] = temp;
 				partitionIndex++;
 			}
 		}
-		String temp = inSet[partitionIndex].getWord();
+		Word temp = inSet[partitionIndex];
 		inSet[partitionIndex] = inSet[end];
-		inSet[end].writeWord(temp);
+		inSet[end] = temp;
 		
 		return partitionIndex;
 	}
