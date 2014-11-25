@@ -58,81 +58,86 @@ public class AS3 {
 		}*/
 		// End reading in the file
 		
-		System.out.println("--------------Menu--------------");
-		System.out.println("1. Comparison Table of Sorts");
-		System.out.println("2. Comparison Table of Searches");
-		System.out.println("3. Run a single sort");
-		System.out.println("4. Run a single search");
-		System.out.println("5. Quit");
-		System.out.print("Your selection: ");
-		int menuSelection = inConsole.nextInt();
-		switch (menuSelection) {
-			case 1:
-				
-			break;
-			case 2:
-				
-			break;
-			case 3:
-				System.out.println("-------Choose a Sort-------");
-				System.out.println("1. Selection");
-				System.out.println("2. Insertion");
-				System.out.println("3. Bubble");
-				System.out.println("4. Merge");
-				System.out.println("5. Quick");
-				System.out.println("6. Go back");
-				System.out.print("Your selection: ");
-				int sortSelection = inConsole.nextInt();
-				switch (sortSelection) {
-					case 1:
-						// System.out.println("prior to method call");
-						// System.out.println("after method call");
-					break;
-					case 2:
-						
-					break;
-					case 3:
-						
-					break;
-					case 4:
-						
-					break;
-					case 5:
-						
-					break;
-					case 6:
-						// TODO: add functionality to return to the parent menu
-					break;
-				}
-			break;
-			case 4:
-				System.out.println("-------Choose a Search-------");
-				System.out.println("1. Linear");
-				System.out.println("2. Binary");
-				System.out.println("3. Quadratic");
-				System.out.println("4. Go back");
-				System.out.print("Your selection: ");
-				int searchSelection = inConsole.nextInt();
-				switch (searchSelection) {
-					case 1:
-						
-					break;
-					case 2:
-						
-					break;
-					case 3:
-						
-					break;
-					case 4:
-						// TODO: add functionality to return to the parent menu
-					break;
-				}
-			break;
-			case 5:
-				System.out.println("Ending program.");
-				System.exit(0);
-			break;
-		}
+		int menuSelection = 0;
+		do {
+			System.out.println();
+			System.out.println("--------------Menu--------------");
+			System.out.println("1. Comparison Table of Sorts");
+			System.out.println("2. Comparison Table of Searches");
+			System.out.println("3. Run a single sort");
+			System.out.println("4. Run a single search");
+			System.out.println("5. Quit");
+			System.out.print("Your selection: ");
+			
+			menuSelection = inConsole.nextInt();
+			switch (menuSelection) {
+				case 1:
+					
+				break;
+				case 2:
+					
+				break;
+				case 3:
+					System.out.println("-------Choose a Sort-------");
+					System.out.println("1. Selection");
+					System.out.println("2. Insertion");
+					System.out.println("3. Bubble");
+					System.out.println("4. Merge");
+					System.out.println("5. Quick");
+					System.out.println("6. Go back");
+					System.out.print("Your selection: ");
+					int sortSelection = inConsole.nextInt();
+					switch (sortSelection) {
+						case 1:
+							// System.out.println("prior to method call");
+							// System.out.println("after method call");
+						break;
+						case 2:
+							
+						break;
+						case 3:
+							
+						break;
+						case 4:
+							
+						break;
+						case 5:
+							
+						break;
+						case 6:
+							// TODO: add functionality to return to the parent menu
+						break;
+					}
+				break;
+				case 4:
+					System.out.println("-------Choose a Search-------");
+					System.out.println("1. Linear");
+					System.out.println("2. Binary");
+					System.out.println("3. Quadratic");
+					System.out.println("4. Go back");
+					System.out.print("Your selection: ");
+					int searchSelection = inConsole.nextInt();
+					switch (searchSelection) {
+						case 1:
+							
+						break;
+						case 2:
+							
+						break;
+						case 3:
+							
+						break;
+						case 4:
+							// TODO: add functionality to return to the parent menu
+						break;
+					}
+				break;
+				case 5:
+					System.out.println("Ending program.");
+					System.exit(0);
+				break;
+			}
+		} while (menuSelection != 5);
 		
 		inConsole.close();
 	}
