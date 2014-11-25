@@ -1,7 +1,7 @@
 public class Word {
 	// Instance Fields
-	private static String word;
-	private static int count;
+	public String word;
+	public int count;
 	
 	// Constructor
 	public Word(String inWord) {
