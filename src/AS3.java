@@ -44,6 +44,15 @@ public class AS3 {
 			break;
 		}
 		
+		Word[] wordSet = new Word[9];
+		for (int i = 0; i < wordSet.length; i++) {
+			wordSet[i] = new Word(inFile.next());
+		}
+		
+		for (int i = 0; i < wordSet.length; i++) {
+			System.out.println(wordSet[i].getWord());
+		}
+		
 		// Read in the file
 		/*wordSet[0] = new Word(inFile.next());
 		for (int i = 1; i < 9; i++) {
