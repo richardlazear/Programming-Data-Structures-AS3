@@ -54,6 +54,7 @@ public class AS3 {
 		sortedWordSet = new Word[wordSet.length];
 		for (int i = 0; i < wordSet.length; i++) {
 			wordSet[i] = new Word(inFile.next());
+			sortedWordSet[i] = wordSet[i];
 		}
 		
 		for (int i = 0; i < wordSet.length; i++) {
