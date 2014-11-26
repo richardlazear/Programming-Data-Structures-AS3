@@ -28,23 +28,27 @@ public class AS3 {
 		
 		// Set up the proper file, as chosen by the user		
 		Scanner inFile = null;
-		System.out.println("Please choose which file you want to read in.");
-		System.out.println("1. As3Small.txt");
-		System.out.println("2. As3Large.txt");
-		System.out.print("Your selection: ");
 		Scanner inConsole = new Scanner(System.in);
 		// TODO: bounds check this for int
-		int fileSelection = inConsole.nextInt();
-		switch (fileSelection) {
-			case 1:
-				File AS3small = new File("As3Small.txt");
-				inFile = new Scanner(AS3small);
-			break;
-			case 2:
-				File AS3large = new File("As3Large.txt");
-				inFile = new Scanner(AS3large);
-			break;
-		}
+		int fileSelection;
+		do {
+			System.out.println("Please choose which file you want to read in.");
+			System.out.println("1. As3Small.txt");
+			System.out.println("2. As3Large.txt");
+			System.out.print("Your selection: ");
+			fileSelection = inConsole.nextInt();
+			switch (fileSelection) {
+				case 1:
+					File AS3small = new File("As3Small.txt");
+					inFile = new Scanner(AS3small);
+				break;
+				case 2:
+					File AS3large = new File("As3Large.txt");
+					inFile = new Scanner(AS3large);
+				break;
+			}
+			System.out.println();
+		} while (fileSelection < 1 || fileSelection > 2);
 		
 		Word[] wordSet = new Word[inFile.nextInt()];
 		sortedWordSet = new Word[wordSet.length];
