@@ -172,7 +172,15 @@ public class AS3 {
 					int searchSelection = inConsole.nextInt();
 					switch (searchSelection) {
 						case 1:
-							
+							System.out.println("What string would you like to search for?");
+							System.out.println("Your entry: ");
+							String toFind = inConsole.next();
+							int result = linearSearch(toFind);
+							if (result > -1) {
+								System.out.println("The string was found in the array at index " + result + ".  It appeared in the file " + sortedWordSet[result].getCount() + " times.");
+							} else {
+								System.out.println("Sorry, that string is not in the array.");
+							}
 						break;
 						case 2:
 							
@@ -345,7 +353,27 @@ public class AS3 {
 	}
 	
 	// Method for Linear Search
-	public static int linearSearch(Word[] inSet, String wordToFind) {
+	public static int linearSearch(String wordToFind) {
+		boolean found = false;
+		int foundAtIndex = 0;
+		
+		// Search each slot in the array by comparing the number to find against the current number in the array.
+		for (int i = 0; i < sortedWordSet.length; i++) {
+			if (wordToFind.equals(sortedWordSet[i].getWord())) {
+				found = true;
+				foundAtIndex = i;
+				break;
+			}
+		}
+		
+		if (found == true) {
+			return foundAtIndex;
+		} else {
+			return -1;
+		}
+	}
+	
+	public static int linearSearch_fillingArray(Word[] inSet, String wordToFind) {
 		boolean found = false;
 		int foundAtIndex = 0;
 		
