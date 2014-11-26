@@ -83,7 +83,6 @@ public class AS3 {
 			System.out.println("4. Run a single search");
 			System.out.println("5. Quit");
 			System.out.print("Your selection: ");
-			
 			menuSelection = inConsole.nextInt();
 			switch (menuSelection) {
 				case 1:
@@ -126,7 +125,15 @@ public class AS3 {
 							}
 						break;
 						case 3:
+							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+							for (int i = 0; i < wordSet.length; i++) {
+								sortedWordSet[i] = wordSet[i];
+							}
+							bubbleSort();
 							
+							for (int i = 0; i < wordSet.length; i++) {
+								System.out.println(sortedWordSet[i].getWord());
+							}
 						break;
 						case 4:
 							
@@ -135,7 +142,7 @@ public class AS3 {
 							
 						break;
 						case 6:
-							// TODO: add functionality to return to the parent menu
+
 						break;
 					}
 				break;
@@ -206,6 +213,25 @@ public class AS3 {
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				sortedWordSet[j - 1] = temp;
 				j--;
+			}
+		}
+		sorted = true;
+	}
+	
+	public static void bubbleSort() {
+		boolean swapped;
+		for (int i = sortedWordSet.length - 1; i >= 0; i--) {
+			swapped = false;
+			for (int j = 0; j < i; j++) {
+				if (sortedWordSet[j].getWord().compareTo(sortedWordSet[j + 1].getWord()) > 0) {
+					Word temp = sortedWordSet[j];
+					sortedWordSet[j] = sortedWordSet[j + 1];
+					sortedWordSet[j + 1] = temp;
+					swapped = true;
+				}
+			}
+			if (swapped == false) { // If nothing for this run through the loop has been swapped, then the array is already in order, so the loop can end.
+				break;
 			}
 		}
 		sorted = true;
