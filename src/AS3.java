@@ -136,10 +136,26 @@ public class AS3 {
 							}
 						break;
 						case 4:
+							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+							for (int i = 0; i < wordSet.length; i++) {
+								sortedWordSet[i] = wordSet[i];
+							}
+							mergeSort(sortedWordSet);
 							
+							for (int i = 0; i < wordSet.length; i++) {
+								System.out.println(sortedWordSet[i].getWord());
+							}
 						break;
 						case 5:
+							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+							for (int i = 0; i < wordSet.length; i++) {
+								sortedWordSet[i] = wordSet[i];
+							}
+							quickSort(sortedWordSet, 0, sortedWordSet.length);
 							
+							for (int i = 0; i < wordSet.length; i++) {
+								System.out.println(sortedWordSet[i].getWord());
+							}
 						break;
 						case 6:
 
@@ -235,6 +251,69 @@ public class AS3 {
 			}
 		}
 		sorted = true;
+	}
+	
+	public static void mergeSort(Word[] inSet) {
+		// https://www.youtube.com/watch?v=TzeBrDU-JaY
+		
+		int n = inSet.length;
+		// Base case
+		if (n < 2) {
+			return;
+		}
+		int mid = n / 2; // Defines the index of the midpoint of the parent array
+		// Create and fill the child arrays
+		Word[] leftArray = new Word[mid];
+		Word[] rightArray = new Word[n - mid];
+		for (int i = 0; i < mid; i++) {
+			leftArray[i] = inSet[i];
+		}
+		for (int i = mid; i < n; i++) {
+			rightArray[i - mid] = inSet[i];
+		}
+		
+		// Recursive calls
+		mergeSort(leftArray);
+		mergeSort(rightArray);
+		
+		merge(leftArray, rightArray, inSet);
+	}
+	
+	public static void merge(Word[] inLeftArray, Word[] inRightArray, Word[] inSet) {
+		// https://www.youtube.com/watch?v=TzeBrDU-JaY
+		
+		int nLeft = inLeftArray.length;
+		int nRight = inRightArray.length;
+		int l = 0; // Represents the current index location in the left array
+		int r = 0; // Represents the current index location in the right array
+		int i = 0; // Represents the current index location in the 'inSet' array
+		while (l < nLeft && r < nRight) {
+			if (inLeftArray[l].getWord().compareTo(inRightArray[r].getWord()) < 0) {
+				inSet[i] = inLeftArray[l];
+				l++; // Move to the next spot in the left array
+			} else if (inLeftArray[l].getWord().equals(inRightArray[r].getWord())) {
+				inSet[i] = inLeftArray[l];
+				i++;
+				l++;
+				inSet[i] = inRightArray[r];
+				r++;
+			} else {
+				inSet[i] = inRightArray[r];
+				r++; // Move to the next spot in the right array;
+			}
+			i++; // Move to the next spot in the complete array
+		}
+		// Fill in any remaining numbers from the left and/or right arrays
+		while (l < nLeft) {
+			inSet[i] = inLeftArray[l];
+			i++;
+			l++;
+		}
+		while (r < nRight) {
+			inSet[i] = inRightArray[r];
+			i++;
+			r++;
+		}
 	}
 	
 	public static void quickSort(Word[] inSet, int start, int end) {
