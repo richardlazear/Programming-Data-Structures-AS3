@@ -1,5 +1,5 @@
 public class Word {
-	// Instance Fields
+	// Fields
 	public String word;
 	public int count;
 	
