@@ -151,7 +151,7 @@ public class AS3 {
 							for (int i = 0; i < wordSet.length; i++) {
 								sortedWordSet[i] = wordSet[i];
 							}
-							quickSort(sortedWordSet, 0, sortedWordSet.length);
+							quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
 							
 							for (int i = 0; i < wordSet.length; i++) {
 								System.out.println(sortedWordSet[i].getWord());
