@@ -198,16 +198,7 @@ public class AS3 {
 			System.out.println("valueToSort: " + valueToSort);
 			int j = i;
 			while (j > 0 && sortedWordSet[j - 1].getWord().compareTo(valueToSort) > 0) {
-				System.out.println("i: " + i + "  --  j: " + j);
-				System.out.println(sortedWordSet[j - 1].getWord().compareTo(valueToSort));
 				Word temp = sortedWordSet[j];
-				System.out.println("temp: " + temp.getWord());
-				System.out.println("----------------------");
-				for (int z = 0; z < sortedWordSet.length; z++) {
-					System.out.println(sortedWordSet[z].getWord());
-				}
-				System.out.println("----------------------");
-				
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				sortedWordSet[j - 1] = temp;
 				j--;
