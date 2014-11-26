@@ -17,6 +17,7 @@ import java.util.Timer;
 public class AS3 {
 	// Instance Fields
 	private static Word[] sortedWordSet;
+	private static boolean sorted = false;
 	
 	public static void main(String[] args)  throws FileNotFoundException {
 		// Program introduction for the user
@@ -32,6 +33,7 @@ public class AS3 {
 		System.out.println("2. As3Large.txt");
 		System.out.print("Your selection: ");
 		Scanner inConsole = new Scanner(System.in);
+		// TODO: bounds check this for int
 		int fileSelection = inConsole.nextInt();
 		switch (fileSelection) {
 			case 1:
@@ -44,7 +46,8 @@ public class AS3 {
 			break;
 		}
 		
-		Word[] wordSet = new Word[9];
+		Word[] wordSet = new Word[inFile.nextInt()];
+		sortedWordSet = new Word[wordSet.length];
 		for (int i = 0; i < wordSet.length; i++) {
 			wordSet[i] = new Word(inFile.next());
 		}
@@ -61,9 +64,8 @@ public class AS3 {
 				wordSet[i].addToCount();
 			} else {
 				wordSet[i] = new Word(word);
-				System.out.println(wordSet[i].getWord());
+				// System.out.println(wordSet[i].getWord());
 			}
-			System.out.println("first run");
 		}*/
 		// End reading in the file
 		
@@ -97,9 +99,16 @@ public class AS3 {
 					System.out.print("Your selection: ");
 					int sortSelection = inConsole.nextInt();
 					switch (sortSelection) {
-						case 1:
-							// System.out.println("prior to method call");
-							// System.out.println("after method call");
+						case 1:				
+							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+							for (int i = 0; i < wordSet.length; i++) {
+								sortedWordSet[i] = wordSet[i];
+							}
+							selectionSort();
+							
+							for (int i = 0; i < wordSet.length; i++) {
+								System.out.println(sortedWordSet[i].getWord());
+							}
 						break;
 						case 2:
 							
@@ -158,30 +167,20 @@ public class AS3 {
 			minIndex = i;
 			for (int j = i + 1; j < sortedWordSet.length; j++) {
 				String toCompareJ = sortedWordSet[j].getWord();
-				System.out.println(toCompareJ);
 				if (toCompareJ.compareTo(sortedWordSet[minIndex].getWord()) < 0) {
-					System.out.println("sortedWordSet[j] is less than sortedWordSet[minIndex]");
 					minIndex = j;
 				}
 			}
 
 			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) {
-				System.out.println("does it get here?");
-				String temp = sortedWordSet[i].getWord();
-				sortedWordSet[i].writeWord(sortedWordSet[minIndex].getWord());
-				sortedWordSet[minIndex].writeWord(temp);
+				Word temp = sortedWordSet[i];
+				sortedWordSet[i] = sortedWordSet[minIndex];
+				sortedWordSet[minIndex] = temp;
 			} else {
 				break;
 			}
-			
-			// Print the progression lines
-			for (int p = 0; p < sortedWordSet.length; p++) {
-				System.out.print(sortedWordSet[p].getWord() + " ");
-			}
-			System.out.println();
-			
-			// sorted = true;*/
 		}
+		sorted = true;
 	}
 	
 	// Method for Insertion Sort
@@ -232,16 +231,25 @@ public class AS3 {
 		boolean found = false;
 		int foundAtIndex = 0;
 		
+		/*for (int i = 0; i < inSet.length; i++) {
+			System.out.println(inSet[i]);
+		}*/
+		
 		// Search each slot in the array by comparing the number to find against the current number in the array.
-		for (int i = 0; i < 9; i++) {
-			System.out.println(i);
-			System.out.println(inSet[i].getWord());
-			// String wordToTest = inSet[i].getWord();
-			/*if (wordToFind.equals(wordToTest)) {
+		int filledLength = 1;
+		for (int i = 0; i < filledLength; i++) {
+			System.out.println("i: " + i);
+			System.out.println("filledLength: " + filledLength);
+			String wordToTest = inSet[i].getWord();
+			System.out.println(wordToTest);
+			if (wordToFind.equals(wordToTest)) {
 				found = true;
 				foundAtIndex = i;
 				break;
-			}*/
+			} else {
+				filledLength++;
+			}
+			
 		}
 		System.out.println();
 		
