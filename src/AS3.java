@@ -175,23 +175,45 @@ public class AS3 {
 						case 1:
 							System.out.println("What string would you like to search for?");
 							System.out.println("Your entry: ");
-							String toFind = inConsole.next();
-							int result = linearSearch(toFind);
-							if (result > -1) {
-								System.out.println("The string was found in the array at index " + result + ".  It appeared in the file " + sortedWordSet[result].getCount() + " times.");
+							String toFindLinear = inConsole.next();
+							int linearResult = linearSearch(toFindLinear);
+							if (linearResult > -1) {
+								System.out.println("The string was found in the array at index " + linearResult + ".  It appeared in the file " + sortedWordSet[linearResult].getCount() + " times.");
 							} else {
 								System.out.println("Sorry, that string is not in the array.");
 							}
 						break;
 						case 2:
-							
+							if (sorted) {
+								System.out.println("What string would you like to search for?");
+								System.out.println("Your entry: ");
+								String toFindBinary = inConsole.next();
+								int binaryResult = binarySearch(toFindBinary);
+								if (binaryResult > -1) {
+									System.out.println("The string was found in the array at index " + binaryResult + ".  It appeared in the file " + sortedWordSet[binaryResult].getCount() + " times.");
+								} else {
+									System.out.println("Sorry, that string is not in the array.");
+								}
+							} else {
+								System.out.println("Please go back and sort the array before running a binary search.");
+							}
 						break;
 						case 3:
-							
+							if (sorted) {
+								System.out.println("What string would you like to search for?");
+								System.out.println("Your entry: ");
+								String toFindQuadratic = inConsole.next();
+								int quadraticResult = quadraticSearch(toFindQuadratic);
+								if (quadraticResult > -1) {
+									System.out.println("The string was found in the array at index " + quadraticResult + ".  It appeared in the file " + sortedWordSet[quadraticResult].getCount() + " times.");
+								} else {
+									System.out.println("Sorry, that string is not in the array.");
+								}
+							} else {
+								System.out.println("Please go back and sort the array before running a binary search.");
+							}
 						break;
-						case 4:
-							// TODO: add functionality to return to the parent menu
-						break;
+						case 4: break;
 					}
 				break;
 				case 5:
@@ -286,6 +308,7 @@ public class AS3 {
 		mergeSort(rightArray);
 		
 		merge(leftArray, rightArray, inSet);
+		sorted = true;
 	}
 	
 	public static void merge(Word[] inLeftArray, Word[] inRightArray, Word[] inSet) {
@@ -367,6 +390,69 @@ public class AS3 {
 			}
 		}
 		
+		if (found == true) {
+			return foundAtIndex;
+		} else {
+			return -1;
+		}
+	}
+	
+	// Method for Binary Search
+	public static int binarySearch(String wordToFind) {
+		boolean found = false;
+		int foundAtIndex = 0;
+		int low = 0;
+		int high = sortedWordSet.length - 1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			int difference = sortedWordSet[mid].getWord().compareTo(wordToFind);
+
+			if (difference == 0) {
+				found = true;
+				foundAtIndex = mid;
+				break;
+			} else if (difference < 0) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
+
+		if (found == true) {
+			return foundAtIndex;
+		} else {
+			return -1;
+		}
+	}
+
+	// Method for Quadratic Search
+	public static int quadraticSearch(String wordToFind) {
+		boolean found = false;
+		int foundAtIndex = 0;
+
+		int range = (int) Math.sqrt(sortedWordSet.length);
+		int high = range;
+		System.out.println("sqrt of length " + range);
+		
+		while (wordToFind.compareTo(sortedWordSet[high].getWord()) > 0) {
+			/* System.out.println("high old is < sortedNumberSet.length; high = " + high); */
+			if (high + range > sortedWordSet.length - 1) {
+				high = sortedWordSet.length - 1;
+			} else {
+				high = high + range;
+			}
+			/* System.out.println("high new is < sortedNumberSet.length; high = " + high); */
+		}
+		
+		//Linear Search within the range
+		for (int i = (high - range); i <= high; i++) {
+			if (wordToFind.equals(sortedWordSet[i].getWord())) {
+				found = true;
+				foundAtIndex = i;
+				break;
+			}
+		}
+
 		if (found == true) {
 			return foundAtIndex;
 		} else {
