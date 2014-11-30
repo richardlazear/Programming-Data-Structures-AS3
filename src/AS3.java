@@ -18,6 +18,8 @@ public class AS3 {
 	// Instance Fields
 	private static Word[] sortedWordSet;
 	private static boolean sorted = false;
+	private static long startTime, endTime, duration;
+	private static int swapCount;
 	
 	public static void main(String[] args)  throws FileNotFoundException {
 		// Program introduction for the user
@@ -87,7 +89,87 @@ public class AS3 {
 			menuSelection = inConsole.nextInt();
 			switch (menuSelection) {
 				case 1:
+					System.out.println("----------Sort Method Results----------");
 					
+					// Start selection sort
+					if (sorted) {
+						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+						for (int i = 0; i < wordSet.length; i++) {
+							sortedWordSet[i] = wordSet[i];
+						}
+					}
+					startTime = 0;
+					endTime = 0;
+					startTime = System.nanoTime();
+					selectionSort();
+					endTime = System.nanoTime();
+					duration = endTime - startTime;
+					System.out.println("Selection sort duration: " + duration + " nanoseconds");
+					// End selection sort
+					
+					// Start insertion sort
+					if (sorted) {
+						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+						for (int i = 0; i < wordSet.length; i++) {
+							sortedWordSet[i] = wordSet[i];
+						}
+					}
+					startTime = 0;
+					endTime = 0;
+					startTime = System.nanoTime();
+					insertionSort();
+					endTime = System.nanoTime();
+					duration = endTime - startTime;
+					System.out.println("Insertion sort duration: " + duration + " nanoseconds");
+					// End insertion sort
+					
+					// Start bubble sort
+					if (sorted) {
+						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+						for (int i = 0; i < wordSet.length; i++) {
+							sortedWordSet[i] = wordSet[i];
+						}
+					}
+					startTime = 0;
+					endTime = 0;
+					startTime = System.nanoTime();
+					bubbleSort();
+					endTime = System.nanoTime();
+					duration = endTime - startTime;
+					System.out.println("Bubble sort duration: " + duration + " nanoseconds");
+					// End bubble sort
+					
+					// Start merge sort
+					if (sorted) {
+						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+						for (int i = 0; i < wordSet.length; i++) {
+							sortedWordSet[i] = wordSet[i];
+						}
+					}
+					startTime = 0;
+					endTime = 0;
+					startTime = System.nanoTime();
+					mergeSort(sortedWordSet);
+					endTime = System.nanoTime();
+					duration = endTime - startTime;
+					System.out.println("Merge sort duration: " + duration + " nanoseconds");
+					// End merge sort
+					
+					// Start quick sort
+					if (sorted) {
+						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+						for (int i = 0; i < wordSet.length; i++) {
+							sortedWordSet[i] = wordSet[i];
+						}
+					}
+					startTime = 0;
+					endTime = 0;
+					startTime = System.nanoTime();
+					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
+					endTime = System.nanoTime();
+					duration = endTime - startTime;
+					System.out.println("Quick sort duration: " + duration + " nanoseconds");
+					// End quick sort
 				break;
 				case 2:
 					
@@ -103,10 +185,12 @@ public class AS3 {
 					System.out.print("Your selection: ");
 					int sortSelection = inConsole.nextInt();
 					switch (sortSelection) {
-						case 1:				
-							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-							for (int i = 0; i < wordSet.length; i++) {
-								sortedWordSet[i] = wordSet[i];
+						case 1:	
+							if (sorted) {
+								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+								for (int i = 0; i < wordSet.length; i++) {
+									sortedWordSet[i] = wordSet[i];
+								}
 							}
 							selectionSort();
 							
@@ -115,9 +199,11 @@ public class AS3 {
 							}
 						break;
 						case 2:
-							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-							for (int i = 0; i < wordSet.length; i++) {
-								sortedWordSet[i] = wordSet[i];
+							if (sorted) {
+								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+								for (int i = 0; i < wordSet.length; i++) {
+									sortedWordSet[i] = wordSet[i];
+								}
 							}
 							insertionSort();
 							
@@ -126,9 +212,11 @@ public class AS3 {
 							}
 						break;
 						case 3:
-							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-							for (int i = 0; i < wordSet.length; i++) {
-								sortedWordSet[i] = wordSet[i];
+							if (sorted) {
+								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+								for (int i = 0; i < wordSet.length; i++) {
+									sortedWordSet[i] = wordSet[i];
+								}
 							}
 							bubbleSort();
 							
@@ -137,9 +225,11 @@ public class AS3 {
 							}
 						break;
 						case 4:
-							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-							for (int i = 0; i < wordSet.length; i++) {
-								sortedWordSet[i] = wordSet[i];
+							if (sorted) {
+								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+								for (int i = 0; i < wordSet.length; i++) {
+									sortedWordSet[i] = wordSet[i];
+								}
 							}
 							mergeSort(sortedWordSet);
 							
@@ -148,9 +238,11 @@ public class AS3 {
 							}
 						break;
 						case 5:
-							// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-							for (int i = 0; i < wordSet.length; i++) {
-								sortedWordSet[i] = wordSet[i];
+							if (sorted) {
+								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+								for (int i = 0; i < wordSet.length; i++) {
+									sortedWordSet[i] = wordSet[i];
+								}
 							}
 							quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
 							
@@ -253,7 +345,6 @@ public class AS3 {
 	public static void insertionSort() {	
 		for (int i = 1; i < sortedWordSet.length; i++) {
 			String valueToSort = sortedWordSet[i].getWord();
-			System.out.println("valueToSort: " + valueToSort);
 			int j = i;
 			while (j > 0 && sortedWordSet[j - 1].getWord().compareTo(valueToSort) > 0) {
 				Word temp = sortedWordSet[j];
