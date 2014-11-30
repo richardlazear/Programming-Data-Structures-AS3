@@ -320,6 +320,7 @@ public class AS3 {
 	
 	// Method for Selection Sort
 	public static void selectionSort() {	
+		swapCount = 0;
 		int minIndex = 0;
 		for (int i = 0; i < sortedWordSet.length - 1; i++) {
 			minIndex = i;
@@ -334,6 +335,7 @@ public class AS3 {
 				Word temp = sortedWordSet[i];
 				sortedWordSet[i] = sortedWordSet[minIndex];
 				sortedWordSet[minIndex] = temp;
+				swapCount++;
 			} else {
 				break;
 			}
@@ -343,6 +345,7 @@ public class AS3 {
 	
 	// Method for Insertion Sort
 	public static void insertionSort() {	
+		swapCount = 0;
 		for (int i = 1; i < sortedWordSet.length; i++) {
 			String valueToSort = sortedWordSet[i].getWord();
 			int j = i;
@@ -350,6 +353,7 @@ public class AS3 {
 				Word temp = sortedWordSet[j];
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				sortedWordSet[j - 1] = temp;
+				swapCount++;
 				j--;
 			}
 		}
@@ -357,6 +361,7 @@ public class AS3 {
 	}
 	
 	public static void bubbleSort() {
+		swapCount = 0;
 		boolean swapped;
 		for (int i = sortedWordSet.length - 1; i >= 0; i--) {
 			swapped = false;
@@ -365,6 +370,7 @@ public class AS3 {
 					Word temp = sortedWordSet[j];
 					sortedWordSet[j] = sortedWordSet[j + 1];
 					sortedWordSet[j + 1] = temp;
+					swapCount++;
 					swapped = true;
 				}
 			}
@@ -376,6 +382,7 @@ public class AS3 {
 	}
 	
 	public static void mergeSort(Word[] inSet) {
+		swapCount = 0;
 		// https://www.youtube.com/watch?v=TzeBrDU-JaY
 		
 		int n = inSet.length;
@@ -422,6 +429,7 @@ public class AS3 {
 				r++;
 			} else {
 				inSet[i] = inRightArray[r];
+				swapCount++; // TODO: check if this is correct
 				r++; // Move to the next spot in the right array;
 			}
 			i++; // Move to the next spot in the complete array
@@ -440,6 +448,7 @@ public class AS3 {
 	}
 	
 	public static void quickSort(Word[] inSet, int start, int end) {
+		swapCount = 0;
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
 		if (start < end) {
 			int partitionIndex = quickPartition(inSet, start, end);
@@ -457,12 +466,14 @@ public class AS3 {
 				Word temp = inSet[partitionIndex];
 				inSet[partitionIndex] = inSet[i];
 				inSet[i] = temp;
+				swapCount++; // TODO: check if this is correct
 				partitionIndex++;
 			}
 		}
 		Word temp = inSet[partitionIndex];
 		inSet[partitionIndex] = inSet[end];
 		inSet[end] = temp;
+		swapCount++; // TODO: check if this is correct
 		
 		return partitionIndex;
 	}
