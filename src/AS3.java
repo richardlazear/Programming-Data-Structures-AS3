@@ -98,13 +98,16 @@ public class AS3 {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
+					System.out.println("SELECTION SORT");
 					startTime = 0;
 					endTime = 0;
 					startTime = System.nanoTime();
 					selectionSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Selection sort duration: " + duration + " nanoseconds");
+					System.out.println("Swaps: " + swapCount);
+					System.out.println("Duration: " + duration + " nanoseconds");
+					System.out.println();
 					// End selection sort
 					
 					// Start insertion sort
@@ -114,13 +117,16 @@ public class AS3 {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
+					System.out.println("INSERTION SORT");
 					startTime = 0;
 					endTime = 0;
 					startTime = System.nanoTime();
 					insertionSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Insertion sort duration: " + duration + " nanoseconds");
+					System.out.println("Swaps: " + swapCount);
+					System.out.println("Duration: " + duration + " nanoseconds");
+					System.out.println();
 					// End insertion sort
 					
 					// Start bubble sort
@@ -130,13 +136,16 @@ public class AS3 {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
+					System.out.println("BUBBLE SORT");
 					startTime = 0;
 					endTime = 0;
 					startTime = System.nanoTime();
 					bubbleSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Bubble sort duration: " + duration + " nanoseconds");
+					System.out.println("Swaps: " + swapCount);
+					System.out.println("Duration: " + duration + " nanoseconds");
+					System.out.println();
 					// End bubble sort
 					
 					// Start merge sort
@@ -146,13 +155,17 @@ public class AS3 {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
+					System.out.println("MERGE SORT");
+					swapCount = 0;
 					startTime = 0;
 					endTime = 0;
 					startTime = System.nanoTime();
 					mergeSort(sortedWordSet);
 					endTime = System.nanoTime();
-					duration = endTime - startTime;
-					System.out.println("Merge sort duration: " + duration + " nanoseconds");
+					duration = (endTime - startTime);
+					System.out.println("Swaps: " + swapCount);
+					System.out.println("Duration: " + duration + " nanoseconds");
+					System.out.println();
 					// End merge sort
 					
 					// Start quick sort
@@ -162,13 +175,17 @@ public class AS3 {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
+					System.out.println("QUICK SORT");
+					swapCount = 0;
 					startTime = 0;
 					endTime = 0;
 					startTime = System.nanoTime();
 					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Quick sort duration: " + duration + " nanoseconds");
+					System.out.println("Swaps: " + swapCount);
+					System.out.println("Duration: " + duration + " nanoseconds");
+					System.out.println();
 					// End quick sort
 				break;
 				case 2:
@@ -382,7 +399,6 @@ public class AS3 {
 	}
 	
 	public static void mergeSort(Word[] inSet) {
-		swapCount = 0;
 		// https://www.youtube.com/watch?v=TzeBrDU-JaY
 		
 		int n = inSet.length;
@@ -448,7 +464,6 @@ public class AS3 {
 	}
 	
 	public static void quickSort(Word[] inSet, int start, int end) {
-		swapCount = 0;
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
 		if (start < end) {
 			int partitionIndex = quickPartition(inSet, start, end);
