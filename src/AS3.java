@@ -52,28 +52,34 @@ public class AS3 {
 			System.out.println();
 		} while (fileSelection < 1 || fileSelection > 2);
 		
-		Word[] wordSet = new Word[inFile.nextInt()];
+		if (fileSelection == 1) {
+			Word[] wordSet = new Word[50];
+		} else {
+			Word[] wordSet = new Word[100000];
+		}
+		
 		sortedWordSet = new Word[wordSet.length];
-		for (int i = 0; i < wordSet.length; i++) {
+		/*for (int i = 0; i < wordSet.length; i++) {
 			wordSet[i] = new Word(inFile.next());
 			sortedWordSet[i] = wordSet[i];
 		}
 		
 		for (int i = 0; i < wordSet.length; i++) {
 			System.out.println(wordSet[i].getWord());
-		}
+		}*/
 		
 		// Read in the file
-		/*wordSet[0] = new Word(inFile.next());
+		wordSet[0] = new Word(inFile.next());
 		for (int i = 1; i < 9; i++) {
 			String word = inFile.next();
-			if (linearSearch(wordSet, word) >= 0) {
+			System.out.println(word);
+			if (linearSearch_fillingArray(wordSet, word, i) >= 0) {
 				wordSet[i].addToCount();
 			} else {
 				wordSet[i] = new Word(word);
-				// System.out.println(wordSet[i].getWord());
+				 System.out.println("In else: " + wordSet[i].getWord());
 			}
-		}*/
+		}
 		// End reading in the file
 		
 		int menuSelection = 0;
@@ -559,7 +565,6 @@ public class AS3 {
 
 		int range = (int) Math.sqrt(sortedWordSet.length);
 		int high = range;
-		System.out.println("sqrt of length " + range);
 		
 		while (wordToFind.compareTo(sortedWordSet[high].getWord()) > 0) {
 			/* System.out.println("high old is < sortedNumberSet.length; high = " + high); */
@@ -587,7 +592,7 @@ public class AS3 {
 		}
 	}
 	
-	public static int linearSearch_fillingArray(Word[] inSet, String wordToFind) {
+	public static int linearSearch_fillingArray(Word[] inSet, String wordToFind, int filledLength) {
 		boolean found = false;
 		int foundAtIndex = 0;
 		
@@ -596,22 +601,22 @@ public class AS3 {
 		}*/
 		
 		// Search each slot in the array by comparing the number to find against the current number in the array.
-		int filledLength = 1;
-		for (int i = 0; i < filledLength; i++) {
-			System.out.println("i: " + i);
+		
+		for (int i = 0; i < filledLength-1; i++) {
+			//System.out.println("i: " + i);
 			System.out.println("filledLength: " + filledLength);
 			String wordToTest = inSet[i].getWord();
-			System.out.println(wordToTest);
+			System.out.println(wordToFind + " " + wordToTest);
 			if (wordToFind.equals(wordToTest)) {
 				found = true;
 				foundAtIndex = i;
 				break;
-			} else {
+			} /*else {
 				filledLength++;
-			}
+			}*/
 			
 		}
-		System.out.println();
+		System.out.println(found);
 		
 		if (found) {
 			return foundAtIndex;
