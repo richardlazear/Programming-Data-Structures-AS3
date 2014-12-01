@@ -52,13 +52,13 @@ public class AS3 {
 			System.out.println();
 		} while (fileSelection < 1 || fileSelection > 2);
 		
+		Word[] wordSet;
 		if (fileSelection == 1) {
-			Word[] wordSet = new Word[50];
+			wordSet = new Word[50];
 		} else {
-			Word[] wordSet = new Word[100000];
+			wordSet = new Word[100000];
 		}
 		
-		sortedWordSet = new Word[wordSet.length];
 		/*for (int i = 0; i < wordSet.length; i++) {
 			wordSet[i] = new Word(inFile.next());
 			sortedWordSet[i] = wordSet[i];
@@ -70,7 +70,17 @@ public class AS3 {
 		
 		// Read in the file
 		wordSet[0] = new Word(inFile.next());
-		for (int i = 1; i < 9; i++) {
+		int numOfWords = 1;
+		while (inFile.hasNext()) {
+			String word = inFile.next();
+			if (linearSearch_fillingArray(wordSet, word, numOfWords) >= 0) {
+				wordSet[numOfWords].addToCount();
+			} else {
+				wordSet[numOfWords] = new Word(word);
+				numOfWords++;
+			}
+		}
+		/*for (int i = 1; i < 9; i++) {
 			String word = inFile.next();
 			System.out.println(word);
 			if (linearSearch_fillingArray(wordSet, word, i) >= 0) {
@@ -79,8 +89,10 @@ public class AS3 {
 				wordSet[i] = new Word(word);
 				 System.out.println("In else: " + wordSet[i].getWord());
 			}
-		}
+		}*/
 		// End reading in the file
+		
+		sortedWordSet = new Word[numOfWords];
 		
 		int menuSelection = 0;
 		do {
@@ -595,28 +607,15 @@ public class AS3 {
 	public static int linearSearch_fillingArray(Word[] inSet, String wordToFind, int filledLength) {
 		boolean found = false;
 		int foundAtIndex = 0;
-		
-		/*for (int i = 0; i < inSet.length; i++) {
-			System.out.println(inSet[i]);
-		}*/
-		
-		// Search each slot in the array by comparing the number to find against the current number in the array.
-		
+
 		for (int i = 0; i < filledLength-1; i++) {
-			//System.out.println("i: " + i);
-			System.out.println("filledLength: " + filledLength);
 			String wordToTest = inSet[i].getWord();
-			System.out.println(wordToFind + " " + wordToTest);
 			if (wordToFind.equals(wordToTest)) {
 				found = true;
 				foundAtIndex = i;
 				break;
-			} /*else {
-				filledLength++;
-			}*/
-			
+			}
 		}
-		System.out.println(found);
 		
 		if (found) {
 			return foundAtIndex;
