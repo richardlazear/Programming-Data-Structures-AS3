@@ -192,7 +192,13 @@ public class AS3 {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
+							System.out.println("SELECTION SORT");
+							resetSortStatistics();
+							startTime = System.nanoTime();
 							selectionSort();
+							endTime = System.nanoTime();
+							duration = endTime - startTime;
+							printSortStatistics();
 							
 							for (int i = 0; i < wordSet.length; i++) {
 								System.out.println(sortedWordSet[i].getWord());
@@ -205,7 +211,13 @@ public class AS3 {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
+							System.out.println("INSERTION SORT");
+							resetSortStatistics();
+							startTime = System.nanoTime();
 							insertionSort();
+							endTime = System.nanoTime();
+							duration = endTime - startTime;
+							printSortStatistics();
 							
 							for (int i = 0; i < wordSet.length; i++) {
 								System.out.println(sortedWordSet[i].getWord());
@@ -218,7 +230,13 @@ public class AS3 {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
+							System.out.println("BUBBLE SORT");
+							resetSortStatistics();
+							startTime = System.nanoTime();
 							bubbleSort();
+							endTime = System.nanoTime();
+							duration = endTime - startTime;
+							printSortStatistics();
 							
 							for (int i = 0; i < wordSet.length; i++) {
 								System.out.println(sortedWordSet[i].getWord());
@@ -231,7 +249,13 @@ public class AS3 {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
+							System.out.println("MERGE SORT");
+							resetSortStatistics();
+							startTime = System.nanoTime();
 							mergeSort(sortedWordSet);
+							endTime = System.nanoTime();
+							duration = (endTime - startTime);
+							printSortStatistics();
 							
 							for (int i = 0; i < wordSet.length; i++) {
 								System.out.println(sortedWordSet[i].getWord());
@@ -244,7 +268,13 @@ public class AS3 {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
+							System.out.println("QUICK SORT");
+							resetSortStatistics();
+							startTime = System.nanoTime();
 							quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
+							endTime = System.nanoTime();
+							duration = endTime - startTime;
+							printSortStatistics();
 							
 							for (int i = 0; i < wordSet.length; i++) {
 								System.out.println(sortedWordSet[i].getWord());
