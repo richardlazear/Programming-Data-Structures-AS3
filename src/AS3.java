@@ -19,7 +19,7 @@ public class AS3 {
 	private static Word[] sortedWordSet;
 	private static boolean sorted = false;
 	private static long startTime, endTime, duration;
-	private static int swapCount;
+	private static int comparisonCount, swapCount;
 	
 	public static void main(String[] args)  throws FileNotFoundException {
 		// Program introduction for the user
@@ -99,12 +99,12 @@ public class AS3 {
 						}
 					}
 					System.out.println("SELECTION SORT");
-					startTime = 0;
-					endTime = 0;
+					resetSortStatistics();
 					startTime = System.nanoTime();
 					selectionSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
+					System.out.println("Comparisons: " + comparisonCount);
 					System.out.println("Swaps: " + swapCount);
 					System.out.println("Duration: " + duration + " nanoseconds");
 					System.out.println();
@@ -118,12 +118,12 @@ public class AS3 {
 						}
 					}
 					System.out.println("INSERTION SORT");
-					startTime = 0;
-					endTime = 0;
+					resetSortStatistics();
 					startTime = System.nanoTime();
 					insertionSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
+					System.out.println("Comparisons: " + comparisonCount);
 					System.out.println("Swaps: " + swapCount);
 					System.out.println("Duration: " + duration + " nanoseconds");
 					System.out.println();
@@ -137,12 +137,12 @@ public class AS3 {
 						}
 					}
 					System.out.println("BUBBLE SORT");
-					startTime = 0;
-					endTime = 0;
+					resetSortStatistics();
 					startTime = System.nanoTime();
 					bubbleSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
+					System.out.println("Comparisons: " + comparisonCount);
 					System.out.println("Swaps: " + swapCount);
 					System.out.println("Duration: " + duration + " nanoseconds");
 					System.out.println();
@@ -156,13 +156,12 @@ public class AS3 {
 						}
 					}
 					System.out.println("MERGE SORT");
-					swapCount = 0;
-					startTime = 0;
-					endTime = 0;
+					resetSortStatistics();
 					startTime = System.nanoTime();
 					mergeSort(sortedWordSet);
 					endTime = System.nanoTime();
 					duration = (endTime - startTime);
+					System.out.println("Comparisons: " + comparisonCount);
 					System.out.println("Swaps: " + swapCount);
 					System.out.println("Duration: " + duration + " nanoseconds");
 					System.out.println();
@@ -176,13 +175,12 @@ public class AS3 {
 						}
 					}
 					System.out.println("QUICK SORT");
-					swapCount = 0;
-					startTime = 0;
-					endTime = 0;
+					resetSortStatistics();
 					startTime = System.nanoTime();
 					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
+					System.out.println("Comparisons: " + comparisonCount);
 					System.out.println("Swaps: " + swapCount);
 					System.out.println("Duration: " + duration + " nanoseconds");
 					System.out.println();
@@ -337,7 +335,6 @@ public class AS3 {
 	
 	// Method for Selection Sort
 	public static void selectionSort() {	
-		swapCount = 0;
 		int minIndex = 0;
 		for (int i = 0; i < sortedWordSet.length - 1; i++) {
 			minIndex = i;
@@ -362,7 +359,6 @@ public class AS3 {
 	
 	// Method for Insertion Sort
 	public static void insertionSort() {	
-		swapCount = 0;
 		for (int i = 1; i < sortedWordSet.length; i++) {
 			String valueToSort = sortedWordSet[i].getWord();
 			int j = i;
@@ -378,7 +374,6 @@ public class AS3 {
 	}
 	
 	public static void bubbleSort() {
-		swapCount = 0;
 		boolean swapped;
 		for (int i = sortedWordSet.length - 1; i >= 0; i--) {
 			swapped = false;
@@ -608,5 +603,16 @@ public class AS3 {
 		} else {
 			return -1;
 		}
+	}
+	
+	public static void resetSortStatistics() {
+		comparisonCount = 0;
+		swapCount = 0;
+		startTime = 0;
+		endTime = 0;
+	}
+	
+	public void resetSearchStatistics() {
+		
 	}
 }
