@@ -104,10 +104,7 @@ public class AS3 {
 					selectionSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Comparisons: " + comparisonCount);
-					System.out.println("Swaps: " + swapCount);
-					System.out.println("Duration: " + duration + " nanoseconds");
-					System.out.println();
+					printSortStatistics();
 					// End selection sort
 					
 					// Start insertion sort
@@ -123,10 +120,7 @@ public class AS3 {
 					insertionSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Comparisons: " + comparisonCount);
-					System.out.println("Swaps: " + swapCount);
-					System.out.println("Duration: " + duration + " nanoseconds");
-					System.out.println();
+					printSortStatistics();
 					// End insertion sort
 					
 					// Start bubble sort
@@ -142,10 +136,7 @@ public class AS3 {
 					bubbleSort();
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Comparisons: " + comparisonCount);
-					System.out.println("Swaps: " + swapCount);
-					System.out.println("Duration: " + duration + " nanoseconds");
-					System.out.println();
+					printSortStatistics();
 					// End bubble sort
 					
 					// Start merge sort
@@ -161,10 +152,7 @@ public class AS3 {
 					mergeSort(sortedWordSet);
 					endTime = System.nanoTime();
 					duration = (endTime - startTime);
-					System.out.println("Comparisons: " + comparisonCount);
-					System.out.println("Swaps: " + swapCount);
-					System.out.println("Duration: " + duration + " nanoseconds");
-					System.out.println();
+					printSortStatistics();
 					// End merge sort
 					
 					// Start quick sort
@@ -180,10 +168,7 @@ public class AS3 {
 					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
 					endTime = System.nanoTime();
 					duration = endTime - startTime;
-					System.out.println("Comparisons: " + comparisonCount);
-					System.out.println("Swaps: " + swapCount);
-					System.out.println("Duration: " + duration + " nanoseconds");
-					System.out.println();
+					printSortStatistics();
 					// End quick sort
 				break;
 				case 2:
@@ -612,7 +597,14 @@ public class AS3 {
 		endTime = 0;
 	}
 	
-	public void resetSearchStatistics() {
+	public static void printSortStatistics() {
+		System.out.println("Comparisons: " + comparisonCount);
+		System.out.println("Swaps: " + swapCount);
+		System.out.println("Duration: " + duration + " nanoseconds");
+		System.out.println();
+	}
+	
+	public static void resetSearchStatistics() {
 		
 	}
 }
