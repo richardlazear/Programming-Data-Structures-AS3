@@ -52,29 +52,22 @@ public class AS3 {
 			System.out.println();
 		} while (fileSelection < 1 || fileSelection > 2);
 		
-		Word[] wordSet;
+		Word[] wordSet; // Create the array
+		// Define the size of the array based on the file being read in
 		if (fileSelection == 1) {
 			wordSet = new Word[50];
 		} else {
 			wordSet = new Word[100000];
 		}
 		
-		/*for (int i = 0; i < wordSet.length; i++) {
-			wordSet[i] = new Word(inFile.next());
-			sortedWordSet[i] = wordSet[i];
-		}
-		
-		for (int i = 0; i < wordSet.length; i++) {
-			System.out.println(wordSet[i].getWord());
-		}*/
-		
 		// Read in the file
 		wordSet[0] = new Word(inFile.next());
 		int numOfWords = 1;
 		while (inFile.hasNext()) {
 			String word = inFile.next();
-			if (linearSearch_fillingArray(wordSet, word, numOfWords) >= 0) {
-				wordSet[numOfWords].addToCount();
+			int linearSearchResult = linearSearch_fillingArray(wordSet, word, numOfWords);
+			if (linearSearchResult >= 0) {
+				wordSet[linearSearchResult].addToCount();
 			} else {
 				wordSet[numOfWords] = new Word(word);
 				numOfWords++;
@@ -88,7 +81,7 @@ public class AS3 {
 			sortedWordSet[i] = wordSet[i];
 		}
 		for (int i = 0; i < numOfWords; i++) {
-			System.out.println(sortedWordSet[i].getWord());
+			System.out.println(sortedWordSet[i].getWord() + " -count: " + sortedWordSet[i].getCount());
 		}
 		
 		int menuSelection = 0;
