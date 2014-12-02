@@ -52,47 +52,37 @@ public class AS3 {
 			System.out.println();
 		} while (fileSelection < 1 || fileSelection > 2);
 		
-		Word[] wordSet;
+		Word[] wordSet; // Create the array
+		// Define the size of the array based on the file being read in
 		if (fileSelection == 1) {
 			wordSet = new Word[50];
 		} else {
 			wordSet = new Word[100000];
 		}
 		
-		/*for (int i = 0; i < wordSet.length; i++) {
-			wordSet[i] = new Word(inFile.next());
-			sortedWordSet[i] = wordSet[i];
-		}
-		
-		for (int i = 0; i < wordSet.length; i++) {
-			System.out.println(wordSet[i].getWord());
-		}*/
-		
 		// Read in the file
 		wordSet[0] = new Word(inFile.next());
 		int numOfWords = 1;
 		while (inFile.hasNext()) {
 			String word = inFile.next();
-			if (linearSearch_fillingArray(wordSet, word, numOfWords) >= 0) {
-				wordSet[numOfWords].addToCount();
+			int linearSearchResult = linearSearch_fillingArray(wordSet, word, numOfWords);
+			if (linearSearchResult >= 0) {
+				wordSet[linearSearchResult].addToCount();
 			} else {
 				wordSet[numOfWords] = new Word(word);
 				numOfWords++;
 			}
 		}
-		/*for (int i = 1; i < 9; i++) {
-			String word = inFile.next();
-			System.out.println(word);
-			if (linearSearch_fillingArray(wordSet, word, i) >= 0) {
-				wordSet[i].addToCount();
-			} else {
-				wordSet[i] = new Word(word);
-				 System.out.println("In else: " + wordSet[i].getWord());
-			}
-		}*/
+		System.out.println("numOfWords: " + numOfWords);
 		// End reading in the file
 		
 		sortedWordSet = new Word[numOfWords];
+		for (int i = 0; i < numOfWords; i++) {
+			sortedWordSet[i] = wordSet[i];
+		}
+		for (int i = 0; i < numOfWords; i++) {
+			System.out.println(sortedWordSet[i].getWord() + " -count: " + sortedWordSet[i].getCount());
+		}
 		
 		int menuSelection = 0;
 		do {
@@ -112,7 +102,7 @@ public class AS3 {
 					// Start selection sort
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < wordSet.length; i++) {
+						for (int i = 0; i < numOfWords; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
@@ -128,7 +118,7 @@ public class AS3 {
 					// Start insertion sort
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < wordSet.length; i++) {
+						for (int i = 0; i < numOfWords; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
@@ -144,7 +134,7 @@ public class AS3 {
 					// Start bubble sort
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < wordSet.length; i++) {
+						for (int i = 0; i < numOfWords; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
@@ -160,7 +150,7 @@ public class AS3 {
 					// Start merge sort
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < wordSet.length; i++) {
+						for (int i = 0; i < numOfWords; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
@@ -176,7 +166,7 @@ public class AS3 {
 					// Start quick sort
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < wordSet.length; i++) {
+						for (int i = 0; i < numOfWords; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
@@ -206,7 +196,7 @@ public class AS3 {
 						case 1:	
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < wordSet.length; i++) {
+								for (int i = 0; i < numOfWords; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
@@ -218,14 +208,14 @@ public class AS3 {
 							duration = endTime - startTime;
 							printSortStatistics();
 							
-							for (int i = 0; i < wordSet.length; i++) {
+							for (int i = 0; i < numOfWords; i++) {
 								System.out.println(sortedWordSet[i].getWord());
 							}
 						break;
 						case 2:
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < wordSet.length; i++) {
+								for (int i = 0; i < numOfWords; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
@@ -237,14 +227,14 @@ public class AS3 {
 							duration = endTime - startTime;
 							printSortStatistics();
 							
-							for (int i = 0; i < wordSet.length; i++) {
+							for (int i = 0; i < numOfWords; i++) {
 								System.out.println(sortedWordSet[i].getWord());
 							}
 						break;
 						case 3:
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < wordSet.length; i++) {
+								for (int i = 0; i < numOfWords; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
@@ -256,14 +246,14 @@ public class AS3 {
 							duration = endTime - startTime;
 							printSortStatistics();
 							
-							for (int i = 0; i < wordSet.length; i++) {
+							for (int i = 0; i < numOfWords; i++) {
 								System.out.println(sortedWordSet[i].getWord());
 							}
 						break;
 						case 4:
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < wordSet.length; i++) {
+								for (int i = 0; i < numOfWords; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
@@ -275,14 +265,14 @@ public class AS3 {
 							duration = (endTime - startTime);
 							printSortStatistics();
 							
-							for (int i = 0; i < wordSet.length; i++) {
+							for (int i = 0; i < numOfWords; i++) {
 								System.out.println(sortedWordSet[i].getWord());
 							}
 						break;
 						case 5:
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < wordSet.length; i++) {
+								for (int i = 0; i < numOfWords; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
@@ -294,7 +284,7 @@ public class AS3 {
 							duration = endTime - startTime;
 							printSortStatistics();
 							
-							for (int i = 0; i < wordSet.length; i++) {
+							for (int i = 0; i < numOfWords; i++) {
 								System.out.println(sortedWordSet[i].getWord());
 							}
 						break;
@@ -373,11 +363,13 @@ public class AS3 {
 			minIndex = i;
 			for (int j = i + 1; j < sortedWordSet.length; j++) {
 				String toCompareJ = sortedWordSet[j].getWord();
+				comparisonCount++;
 				if (toCompareJ.compareTo(sortedWordSet[minIndex].getWord()) < 0) {
 					minIndex = j;
 				}
 			}
 
+			comparisonCount++;
 			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) {
 				Word temp = sortedWordSet[i];
 				sortedWordSet[i] = sortedWordSet[minIndex];
@@ -396,6 +388,7 @@ public class AS3 {
 			String valueToSort = sortedWordSet[i].getWord();
 			int j = i;
 			while (j > 0 && sortedWordSet[j - 1].getWord().compareTo(valueToSort) > 0) {
+				comparisonCount++; // TODO: check if you need to add 1 or 2 comparisons outside of the while loop
 				Word temp = sortedWordSet[j];
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				sortedWordSet[j - 1] = temp;
@@ -411,6 +404,7 @@ public class AS3 {
 		for (int i = sortedWordSet.length - 1; i >= 0; i--) {
 			swapped = false;
 			for (int j = 0; j < i; j++) {
+				comparisonCount++;
 				if (sortedWordSet[j].getWord().compareTo(sortedWordSet[j + 1].getWord()) > 0) {
 					Word temp = sortedWordSet[j];
 					sortedWordSet[j] = sortedWordSet[j + 1];
@@ -463,15 +457,18 @@ public class AS3 {
 		int i = 0; // Represents the current index location in the 'inSet' array
 		while (l < nLeft && r < nRight) {
 			if (inLeftArray[l].getWord().compareTo(inRightArray[r].getWord()) < 0) {
+				comparisonCount++;
 				inSet[i] = inLeftArray[l];
 				l++; // Move to the next spot in the left array
 			} else if (inLeftArray[l].getWord().equals(inRightArray[r].getWord())) {
+				comparisonCount++;
 				inSet[i] = inLeftArray[l];
 				i++;
 				l++;
 				inSet[i] = inRightArray[r];
 				r++;
 			} else {
+				comparisonCount++; // TODO: check if all comparisonCount++ lines are correct in this method
 				inSet[i] = inRightArray[r];
 				swapCount++; // TODO: check if this is correct
 				r++; // Move to the next spot in the right array;
@@ -505,6 +502,7 @@ public class AS3 {
 		String pivot = inSet[end].getWord();
 		int partitionIndex = start;
 		for (int i = start; i <= end - 1; i++) {
+			comparisonCount++;
 			if (inSet[i].getWord().compareTo(pivot) < 0){
 				Word temp = inSet[partitionIndex];
 				inSet[partitionIndex] = inSet[i];
