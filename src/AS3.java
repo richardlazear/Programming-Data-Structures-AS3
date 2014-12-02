@@ -363,11 +363,13 @@ public class AS3 {
 			minIndex = i;
 			for (int j = i + 1; j < sortedWordSet.length; j++) {
 				String toCompareJ = sortedWordSet[j].getWord();
+				comparisonCount++;
 				if (toCompareJ.compareTo(sortedWordSet[minIndex].getWord()) < 0) {
 					minIndex = j;
 				}
 			}
 
+			comparisonCount++;
 			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) {
 				Word temp = sortedWordSet[i];
 				sortedWordSet[i] = sortedWordSet[minIndex];
@@ -386,6 +388,7 @@ public class AS3 {
 			String valueToSort = sortedWordSet[i].getWord();
 			int j = i;
 			while (j > 0 && sortedWordSet[j - 1].getWord().compareTo(valueToSort) > 0) {
+				comparisonCount++; // TODO: check if you need to add 1 or 2 comparisons outside of the while loop
 				Word temp = sortedWordSet[j];
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				sortedWordSet[j - 1] = temp;
@@ -401,6 +404,7 @@ public class AS3 {
 		for (int i = sortedWordSet.length - 1; i >= 0; i--) {
 			swapped = false;
 			for (int j = 0; j < i; j++) {
+				comparisonCount++;
 				if (sortedWordSet[j].getWord().compareTo(sortedWordSet[j + 1].getWord()) > 0) {
 					Word temp = sortedWordSet[j];
 					sortedWordSet[j] = sortedWordSet[j + 1];
@@ -453,15 +457,18 @@ public class AS3 {
 		int i = 0; // Represents the current index location in the 'inSet' array
 		while (l < nLeft && r < nRight) {
 			if (inLeftArray[l].getWord().compareTo(inRightArray[r].getWord()) < 0) {
+				comparisonCount++;
 				inSet[i] = inLeftArray[l];
 				l++; // Move to the next spot in the left array
 			} else if (inLeftArray[l].getWord().equals(inRightArray[r].getWord())) {
+				comparisonCount++;
 				inSet[i] = inLeftArray[l];
 				i++;
 				l++;
 				inSet[i] = inRightArray[r];
 				r++;
 			} else {
+				comparisonCount++; // TODO: check if all comparisonCount++ lines are correct in this method
 				inSet[i] = inRightArray[r];
 				swapCount++; // TODO: check if this is correct
 				r++; // Move to the next spot in the right array;
@@ -495,6 +502,7 @@ public class AS3 {
 		String pivot = inSet[end].getWord();
 		int partitionIndex = start;
 		for (int i = start; i <= end - 1; i++) {
+			comparisonCount++;
 			if (inSet[i].getWord().compareTo(pivot) < 0){
 				Word temp = inSet[partitionIndex];
 				inSet[partitionIndex] = inSet[i];
