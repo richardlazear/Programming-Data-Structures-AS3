@@ -65,8 +65,7 @@ public class AS3 {
 		int numOfWords = 1;
 		while (inFile.hasNext()) {
 			String word = inFile.next();
-			// TODO: remove punctuation from string
-			word = word.toLowerCase();
+			word = word.replaceAll("\\p{Punct}", "").toLowerCase(); // Removes any punctuation surrounding or in the string, then changes all letters to lower case.
 			int linearSearchResult = linearSearch_fillingArray(wordSet, word, numOfWords);
 			if (linearSearchResult >= 0) {
 				wordSet[linearSearchResult].addToCount();
