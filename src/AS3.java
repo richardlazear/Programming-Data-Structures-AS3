@@ -65,6 +65,8 @@ public class AS3 {
 		int numOfWords = 1;
 		while (inFile.hasNext()) {
 			String word = inFile.next();
+			// TODO: remove punctuation from string
+			word = word.toLowerCase();
 			int linearSearchResult = linearSearch_fillingArray(wordSet, word, numOfWords);
 			if (linearSearchResult >= 0) {
 				wordSet[linearSearchResult].addToCount();
@@ -395,6 +397,7 @@ public class AS3 {
 				swapCount++;
 				j--;
 			}
+			comparisonCount++; // TODO: add comment
 		}
 		sorted = true;
 	}
@@ -456,6 +459,7 @@ public class AS3 {
 		int r = 0; // Represents the current index location in the right array
 		int i = 0; // Represents the current index location in the 'inSet' array
 		while (l < nLeft && r < nRight) {
+			comparisonCount++;
 			if (inLeftArray[l].getWord().compareTo(inRightArray[r].getWord()) < 0) {
 				comparisonCount++;
 				inSet[i] = inLeftArray[l];
@@ -468,7 +472,6 @@ public class AS3 {
 				inSet[i] = inRightArray[r];
 				r++;
 			} else {
-				comparisonCount++; // TODO: check if all comparisonCount++ lines are correct in this method
 				inSet[i] = inRightArray[r];
 				swapCount++; // TODO: check if this is correct
 				r++; // Move to the next spot in the right array;
@@ -501,7 +504,7 @@ public class AS3 {
 		// https://www.youtube.com/watch?v=COk73cpQbFQ
 		String pivot = inSet[end].getWord();
 		int partitionIndex = start;
-		for (int i = start; i <= end - 1; i++) {
+		for (int i = start; i < end; i++) {
 			comparisonCount++;
 			if (inSet[i].getWord().compareTo(pivot) < 0){
 				Word temp = inSet[partitionIndex];
@@ -526,6 +529,7 @@ public class AS3 {
 		
 		// Search each slot in the array by comparing the number to find against the current number in the array.
 		for (int i = 0; i < sortedWordSet.length; i++) {
+			comparisonCount++;
 			if (wordToFind.equals(sortedWordSet[i].getWord())) {
 				found = true;
 				foundAtIndex = i;
@@ -549,7 +553,7 @@ public class AS3 {
 		while (low <= high) {
 			int mid = (low + high) / 2;
 			int difference = sortedWordSet[mid].getWord().compareTo(wordToFind);
-
+			comparisonCount++;
 			if (difference == 0) {
 				found = true;
 				foundAtIndex = mid;
@@ -577,6 +581,7 @@ public class AS3 {
 		int high = range;
 		
 		while (wordToFind.compareTo(sortedWordSet[high].getWord()) > 0) {
+			comparisonCount++;
 			/* System.out.println("high old is < sortedNumberSet.length; high = " + high); */
 			if (high + range > sortedWordSet.length - 1) {
 				high = sortedWordSet.length - 1;
@@ -585,9 +590,11 @@ public class AS3 {
 			}
 			/* System.out.println("high new is < sortedNumberSet.length; high = " + high); */
 		}
+		comparisonCount++;
 		
 		//Linear Search within the range
 		for (int i = (high - range); i <= high; i++) {
+			comparisonCount++;
 			if (wordToFind.equals(sortedWordSet[i].getWord())) {
 				found = true;
 				foundAtIndex = i;
@@ -637,6 +644,8 @@ public class AS3 {
 	}
 	
 	public static void resetSearchStatistics() {
-		
+		comparisonCount = 0;
+		startTime = 0;
+		endTime = 0;
 	}
 }
