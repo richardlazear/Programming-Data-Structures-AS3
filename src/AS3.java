@@ -68,25 +68,6 @@ public class AS3 {
 			// TODO: fix the duplication of yes in the array for the current As3Small.txt
 			// Remove any punctuation (except single dashes) surrounding or in the string, then changes all letters to lower case.
 			word = word.replaceAll("(?!-)\\p{Punct}", "").toLowerCase();
-			if (word.contains("--")) {
-				int firstDashIndex = word.indexOf("-");
-				if (!word.endsWith("--")) {
-					String doubleDashedWord = word.substring(firstDashIndex + 2);
-					word = word.substring(0, firstDashIndex);
-					System.out.println("first: " + word);
-					System.out.println("second: " + doubleDashedWord);
-					
-					int linearSearchResult = linearSearch_fillingArray(wordSet, doubleDashedWord, numOfWords);
-					if (linearSearchResult >= 0) {
-						wordSet[linearSearchResult].addToCount();
-					} else {
-						wordSet[numOfWords] = new Word(doubleDashedWord);
-						numOfWords++;
-					}
-				} else { // If the word ends with "--"...
-					word = word.substring(0, word.length() - 2); // ... remove the ending dashes
-				}
-			}
 			int linearSearchResult = linearSearch_fillingArray(wordSet, word, numOfWords);
 			if (linearSearchResult >= 0) {
 				wordSet[linearSearchResult].addToCount();
