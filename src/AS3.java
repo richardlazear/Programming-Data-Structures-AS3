@@ -66,8 +66,23 @@ public class AS3 {
 		while (inFile.hasNext()) {
 			String word = inFile.next();
 			// TODO: handle dashes in sentences: "...smiled-no..."
-			// word = word.replaceAll("-", " ");
-			word = word.replaceAll("\\p{Punct}&&[^-]", "").toLowerCase(); // Removes any punctuation surrounding or in the string, then changes all letters to lower case.
+			// Remove any punctuation (except single dashes) surrounding or in the string, then changes all letters to lower case.
+			word = word.replaceAll("(?!-)\\p{Punct}", "").toLowerCase();
+			if (word.contains("--")) {
+				int firstDashIndex = word.indexOf("-");
+				String doubleDashedWord = word.substring(firstDashIndex + 2);
+				word = word.substring(0, firstDashIndex);
+				System.out.println("first: " + word);
+				System.out.println("second: " + doubleDashedWord);
+				
+				int linearSearchResult = linearSearch_fillingArray(wordSet, doubleDashedWord, numOfWords);
+				if (linearSearchResult >= 0) {
+					wordSet[linearSearchResult].addToCount();
+				} else {
+					wordSet[numOfWords] = new Word(doubleDashedWord);
+					numOfWords++;
+				}
+			}
 			int linearSearchResult = linearSearch_fillingArray(wordSet, word, numOfWords);
 			if (linearSearchResult >= 0) {
 				wordSet[linearSearchResult].addToCount();
@@ -76,7 +91,6 @@ public class AS3 {
 				numOfWords++;
 			}
 		}
-		System.out.println("numOfWords: " + numOfWords);
 		// End reading in the file
 		
 		sortedWordSet = new Word[numOfWords];
@@ -86,6 +100,9 @@ public class AS3 {
 		for (int i = 0; i < numOfWords; i++) {
 			System.out.println(sortedWordSet[i].getWord() + " -count: " + sortedWordSet[i].getCount());
 		}
+		
+		System.out.println();
+		System.out.println("numOfWords: " + numOfWords);
 		
 		int menuSelection = 0;
 		do {
