@@ -228,10 +228,7 @@ public class AS3 {
 							endTime = System.nanoTime();
 							duration = endTime - startTime;
 							printSortStatistics();
-							
-							for (int i = 0; i < uniqueWordCount; i++) {
-								System.out.println(sortedWordSet[i].getWord());
-							}
+							printSortedWordSet();
 						break;
 						case 2:
 							if (sorted) {
@@ -247,10 +244,7 @@ public class AS3 {
 							endTime = System.nanoTime();
 							duration = endTime - startTime;
 							printSortStatistics();
-							
-							for (int i = 0; i < uniqueWordCount; i++) {
-								System.out.println(sortedWordSet[i].getWord());
-							}
+							printSortedWordSet();
 						break;
 						case 3:
 							if (sorted) {
@@ -266,10 +260,7 @@ public class AS3 {
 							endTime = System.nanoTime();
 							duration = endTime - startTime;
 							printSortStatistics();
-							
-							for (int i = 0; i < uniqueWordCount; i++) {
-								System.out.println(sortedWordSet[i].getWord());
-							}
+							printSortedWordSet();
 						break;
 						case 4:
 							if (sorted) {
@@ -285,10 +276,7 @@ public class AS3 {
 							endTime = System.nanoTime();
 							duration = (endTime - startTime);
 							printSortStatistics();
-							
-							for (int i = 0; i < uniqueWordCount; i++) {
-								System.out.println(sortedWordSet[i].getWord());
-							}
+							printSortedWordSet();
 						break;
 						case 5:
 							if (sorted) {
@@ -304,10 +292,7 @@ public class AS3 {
 							endTime = System.nanoTime();
 							duration = endTime - startTime;
 							printSortStatistics();
-							
-							for (int i = 0; i < uniqueWordCount; i++) {
-								System.out.println(sortedWordSet[i].getWord());
-							}
+							printSortedWordSet();
 						break;
 						case 6:
 
@@ -623,6 +608,12 @@ public class AS3 {
 			return foundAtIndex;
 		} else {
 			return -1;
+		}
+	}
+	
+	public static void printSortedWordSet() {
+		for (int i = 0; i < sortedWordSet.length; i++) {
+			System.out.println(sortedWordSet[i].getWord());
 		}
 	}
 	
