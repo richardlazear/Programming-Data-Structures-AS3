@@ -11,14 +11,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-// artamenes.org
-
 public class AS3 {
 	// Instance Fields
 	private static Scanner inConsole;
 	private static Word[] sortedWordSet;
 	private static boolean sorted = false;
-	private static long startTime, endTime, duration;
+	private static long startTime, endTime;
 	private static int comparisonCount, swapCount;
 	
 	public static void main(String[] args) throws FileNotFoundException {
@@ -501,21 +499,7 @@ public class AS3 {
 		}
 		System.out.println();
 	}
-	
-	public static void resetSortStatistics() {
-		comparisonCount = 0;
-		swapCount = 0;
-		startTime = 0;
-		endTime = 0;
-	}
-	
-	public static void printSortStatistics() {
-		System.out.println("Comparisons: " + comparisonCount);
-		System.out.println("Swaps: " + swapCount);
-		System.out.println("Duration: " + duration + " nanoseconds");
-		System.out.println();
-	}
-	
+		
 	public static void resetSearchStatistics() {
 		comparisonCount = 0;
 		startTime = 0; // TODO: make sure these are actually reset
@@ -536,22 +520,42 @@ public class AS3 {
 			}
 		}
 		
-		resetSortStatistics();
-		startTime = System.nanoTime();
+		// Reset sort statistics
+		comparisonCount = 0;
+		swapCount = 0;
+		startTime = 0;
+		endTime = 0;
+		
+		// Call the proper sort method, depending on the parameters entered in sortProcedure
 		if (inSortName.equals("selection")) {
+			startTime = System.nanoTime();
 			selectionSort();
+			endTime = System.nanoTime();
 		} else if (inSortName.equals("insertion")) {
+			startTime = System.nanoTime();
 			insertionSort();
+			endTime = System.nanoTime();
 		} else if (inSortName.equals("bubble")) {
+			startTime = System.nanoTime();
 			bubbleSort();
+			endTime = System.nanoTime();
 		} else if (inSortName.equals("merge")) {
+			startTime = System.nanoTime();
 			mergeSort(sortedWordSet);
+			endTime = System.nanoTime();
 		} else if (inSortName.equals("quick")) {
+			startTime = System.nanoTime();
 			quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
+			endTime = System.nanoTime();
 		}
-		endTime = System.nanoTime();
-		duration = endTime - startTime;
-		printSortStatistics();
+		
+		long duration = endTime - startTime; // Calculates the total time the selected method ran for
+		
+		// Print sort statistics
+		System.out.println("Comparisons: " + comparisonCount);
+		System.out.println("      Swaps: " + swapCount);
+		System.out.println("   Duration: " + duration + " nanoseconds");
+		System.out.println();
 	}
 	
 	public static void searchProcedure(String inSearchName) {
