@@ -10,12 +10,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Timer;
 
 // artamenes.org
 
 public class AS3 {
 	// Instance Fields
+	private static Scanner inConsole;
 	private static Word[] sortedWordSet;
 	private static boolean sorted = false;
 	private static long startTime, endTime, duration;
@@ -30,7 +30,7 @@ public class AS3 {
 		
 		// Set up the proper file, as chosen by the user		
 		Scanner inFile = null;
-		Scanner inConsole = new Scanner(System.in);
+		inConsole = new Scanner(System.in);
 		// TODO: bounds check this for int
 		int fileSelection;
 		do {
@@ -324,42 +324,18 @@ public class AS3 {
 					int searchSelection = inConsole.nextInt();
 					switch (searchSelection) {
 						case 1:
-							System.out.println("What string would you like to search for?");
-							System.out.println("Your entry: ");
-							String toFindLinear = inConsole.next();
-							int linearResult = linearSearch(toFindLinear);
-							if (linearResult > -1) {
-								System.out.println("The string was found in the array at index " + linearResult + ".  It appeared in the file " + sortedWordSet[linearResult].getCount() + " times.");
-							} else {
-								System.out.println("Sorry, that string is not in the array.");
-							}
+							searchProcedure("linear");
 						break;
 						case 2:
 							if (sorted) {
-								System.out.println("What string would you like to search for?");
-								System.out.println("Your entry: ");
-								String toFindBinary = inConsole.next();
-								int binaryResult = binarySearch(toFindBinary);
-								if (binaryResult > -1) {
-									System.out.println("The string was found in the array at index " + binaryResult + ".  It appeared in the file " + sortedWordSet[binaryResult].getCount() + " times.");
-								} else {
-									System.out.println("Sorry, that string is not in the array.");
-								}
+								searchProcedure("binary");
 							} else {
 								System.out.println("Please go back and sort the array before running a binary search.");
 							}
 						break;
 						case 3:
 							if (sorted) {
-								System.out.println("What string would you like to search for?");
-								System.out.println("Your entry: ");
-								String toFindQuadratic = inConsole.next();
-								int quadraticResult = quadraticSearch(toFindQuadratic);
-								if (quadraticResult > -1) {
-									System.out.println("The string was found in the array at index " + quadraticResult + ".  It appeared in the file " + sortedWordSet[quadraticResult].getCount() + " times.");
-								} else {
-									System.out.println("Sorry, that string is not in the array.");
-								}
+								searchProcedure("quadratic");
 							} else {
 								System.out.println("Please go back and sort the array before running a binary search.");
 							}
@@ -666,7 +642,35 @@ public class AS3 {
 	
 	public static void resetSearchStatistics() {
 		comparisonCount = 0;
-		startTime = 0;
+		startTime = 0; // TODO: make sure these are actually reset
 		endTime = 0;
+	}
+	
+	public static void printSearchStatistics() {
+		System.out.println("Comparisons: " + comparisonCount);
+		System.out.println("Duration: " + duration + " nanoseconds");
+		System.out.println();
+	}
+	
+	public static void searchProcedure(String inSearchName) {
+		resetSearchStatistics();
+		System.out.println("What string would you like to search for?");
+		System.out.println("Your entry: ");
+		String toFind = inConsole.next();
+		int searchResult = 0; // TODO: check if this causes problems
+		if (inSearchName.equals("linear")) {
+			searchResult = linearSearch(toFind);
+		} else if (inSearchName.equals("binary")) {
+			searchResult = binarySearch(toFind);
+		} else if (inSearchName.equals("quadratic")) {
+			searchResult = quadraticSearch(toFind);
+		}
+		
+		if (searchResult > -1) {
+			System.out.println("The string was found in the array at index " + searchResult + ".  It appeared in the file " + sortedWordSet[searchResult].getCount() + " times.");
+		} else {
+			System.out.println("Sorry, that string is not in the array.");
+		}
+		printSearchStatistics();
 	}
 }
