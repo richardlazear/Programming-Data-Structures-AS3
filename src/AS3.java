@@ -21,7 +21,7 @@ public class AS3 {
 	private static long startTime, endTime, duration;
 	private static int comparisonCount, swapCount;
 	
-	public static void main(String[] args)  throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException {
 		// Program introduction for the user
 		System.out.println("Welcome to AS3!");
 		// TODO: add some more information for the user here
@@ -122,75 +122,27 @@ public class AS3 {
 					
 					// Start selection sort
 					System.out.println("SELECTION SORT");
-					
+					sortProcedure("selection", wordSet);
 					// End selection sort
 					
 					// Start insertion sort
 					System.out.println("INSERTION SORT");
-					if (sorted) {
-						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < uniqueWordCount; i++) {
-							sortedWordSet[i] = wordSet[i];
-						}
-					}
-					
-					resetSortStatistics();
-					startTime = System.nanoTime();
-					insertionSort();
-					endTime = System.nanoTime();
-					duration = endTime - startTime;
-					printSortStatistics();
+					sortProcedure("insertion", wordSet);
 					// End insertion sort
 					
 					// Start bubble sort
 					System.out.println("BUBBLE SORT");
-					if (sorted) {
-						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < uniqueWordCount; i++) {
-							sortedWordSet[i] = wordSet[i];
-						}
-					}
-					
-					resetSortStatistics();
-					startTime = System.nanoTime();
-					bubbleSort();
-					endTime = System.nanoTime();
-					duration = endTime - startTime;
-					printSortStatistics();
+					sortProcedure("bubble", wordSet);
 					// End bubble sort
 					
 					// Start merge sort
 					System.out.println("MERGE SORT");
-					if (sorted) {
-						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < uniqueWordCount; i++) {
-							sortedWordSet[i] = wordSet[i];
-						}
-					}
-					
-					resetSortStatistics();
-					startTime = System.nanoTime();
-					mergeSort(sortedWordSet);
-					endTime = System.nanoTime();
-					duration = (endTime - startTime);
-					printSortStatistics();
+					sortProcedure("merge", wordSet);
 					// End merge sort
 					
 					// Start quick sort
 					System.out.println("QUICK SORT");
-					if (sorted) {
-						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < uniqueWordCount; i++) {
-							sortedWordSet[i] = wordSet[i];
-						}
-					}
-					
-					resetSortStatistics();
-					startTime = System.nanoTime();
-					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
-					endTime = System.nanoTime();
-					duration = endTime - startTime;
-					printSortStatistics();
+					sortProcedure("quick", wordSet);
 					// End quick sort
 				break;
 				case 2:
@@ -206,94 +158,29 @@ public class AS3 {
 					System.out.println("6. Go back");
 					System.out.print("Your selection: ");
 					int sortSelection = inConsole.nextInt();
+					System.out.println();
 					switch (sortSelection) {
 						case 1:	
 							System.out.println("SELECTION SORT");
-							if (sorted) {
-								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < uniqueWordCount; i++) {
-									sortedWordSet[i] = wordSet[i];
-								}
-							}
-							resetSortStatistics();
-							startTime = System.nanoTime();
-							selectionSort();
-							endTime = System.nanoTime();
-							duration = endTime - startTime;
-							printSortStatistics();
-							printSortedWordSet();
+							sortProcedure("selection", wordSet);
 						break;
 						case 2:
 							System.out.println("INSERTION SORT");
-							if (sorted) {
-								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < uniqueWordCount; i++) {
-									sortedWordSet[i] = wordSet[i];
-								}
-							}
-							
-							resetSortStatistics();
-							startTime = System.nanoTime();
-							insertionSort();
-							endTime = System.nanoTime();
-							duration = endTime - startTime;
-							printSortStatistics();
-							printSortedWordSet();
+							sortProcedure("insertion", wordSet);
 						break;
 						case 3:
 							System.out.println("BUBBLE SORT");
-							if (sorted) {
-								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < uniqueWordCount; i++) {
-									sortedWordSet[i] = wordSet[i];
-								}
-							}
-							
-							resetSortStatistics();
-							startTime = System.nanoTime();
-							bubbleSort();
-							endTime = System.nanoTime();
-							duration = endTime - startTime;
-							printSortStatistics();
-							printSortedWordSet();
+							sortProcedure("bubble", wordSet);
 						break;
 						case 4:
 							System.out.println("MERGE SORT");
-							if (sorted) {
-								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < uniqueWordCount; i++) {
-									sortedWordSet[i] = wordSet[i];
-								}
-							}
-							
-							resetSortStatistics();
-							startTime = System.nanoTime();
-							mergeSort(sortedWordSet);
-							endTime = System.nanoTime();
-							duration = (endTime - startTime);
-							printSortStatistics();
-							printSortedWordSet();
+							sortProcedure("merge", wordSet);
 						break;
 						case 5:
 							System.out.println("QUICK SORT");
-							if (sorted) {
-								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-								for (int i = 0; i < uniqueWordCount; i++) {
-									sortedWordSet[i] = wordSet[i];
-								}
-							}
-							
-							resetSortStatistics();
-							startTime = System.nanoTime();
-							quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
-							endTime = System.nanoTime();
-							duration = endTime - startTime;
-							printSortStatistics();
-							printSortedWordSet();
+							sortProcedure("quick", wordSet);
 						break;
-						case 6:
-
-						break;
+						case 6: break;
 					}
 				break;
 				case 4:
