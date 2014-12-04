@@ -65,9 +65,25 @@ public class AS3 {
 		int uniqueWordCount = 1;
 		while (inFile.hasNext()) {
 			String word = inFile.next();
-			// TODO: fix the duplication of yes in the array for the current As3Small.txt
-			// Remove any punctuation (except single dashes) surrounding or in the string, then changes all letters to lower case.
-			word = word.replaceAll("(?!-)\\p{Punct}", "").toLowerCase();
+			word = word.replaceAll("(?!-)\\p{Punct}", "").toLowerCase(); // Remove any punctuation (except single dashes) surrounding or in the string, then change all letters to lower case.
+			// TODO: explain this whole if statement
+			if (word.contains("--")) {		
+				int firstDashIndex = word.indexOf("-");		
+				if (!word.endsWith("--")) {		
+					String doubleDashedWord = word.substring(firstDashIndex + 2);		
+					word = word.substring(0, firstDashIndex);			
+							
+					int linearSearchResult = linearSearch_fillingArray(wordSet, doubleDashedWord, uniqueWordCount);		
+					if (linearSearchResult >= 0) {		
+						wordSet[linearSearchResult].addToCount();		
+					} else {		
+						wordSet[uniqueWordCount] = new Word(doubleDashedWord);		
+						uniqueWordCount++;		
+					}		
+				} else { // If the word ends with "--"...		
+					word = word.substring(0, word.length() - 2); // ... remove the ending dashes		
+				}		
+			}
 			int linearSearchResult = linearSearch_fillingArray(wordSet, word, uniqueWordCount);
 			if (linearSearchResult >= 0) {
 				wordSet[linearSearchResult].addToCount();
