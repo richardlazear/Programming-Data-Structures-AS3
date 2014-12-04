@@ -121,29 +121,19 @@ public class AS3 {
 					System.out.println("----------Sort Method Results----------");
 					
 					// Start selection sort
-					if (sorted) {
-						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
-						for (int i = 0; i < uniqueWordCount; i++) {
-							sortedWordSet[i] = wordSet[i];
-						}
-					}
 					System.out.println("SELECTION SORT");
-					resetSortStatistics();
-					startTime = System.nanoTime();
-					selectionSort();
-					endTime = System.nanoTime();
-					duration = endTime - startTime;
-					printSortStatistics();
+					
 					// End selection sort
 					
 					// Start insertion sort
+					System.out.println("INSERTION SORT");
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 						for (int i = 0; i < uniqueWordCount; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
-					System.out.println("INSERTION SORT");
+					
 					resetSortStatistics();
 					startTime = System.nanoTime();
 					insertionSort();
@@ -153,13 +143,14 @@ public class AS3 {
 					// End insertion sort
 					
 					// Start bubble sort
+					System.out.println("BUBBLE SORT");
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 						for (int i = 0; i < uniqueWordCount; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
-					System.out.println("BUBBLE SORT");
+					
 					resetSortStatistics();
 					startTime = System.nanoTime();
 					bubbleSort();
@@ -169,13 +160,14 @@ public class AS3 {
 					// End bubble sort
 					
 					// Start merge sort
+					System.out.println("MERGE SORT");
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 						for (int i = 0; i < uniqueWordCount; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
-					System.out.println("MERGE SORT");
+					
 					resetSortStatistics();
 					startTime = System.nanoTime();
 					mergeSort(sortedWordSet);
@@ -185,13 +177,14 @@ public class AS3 {
 					// End merge sort
 					
 					// Start quick sort
+					System.out.println("QUICK SORT");
 					if (sorted) {
 						// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 						for (int i = 0; i < uniqueWordCount; i++) {
 							sortedWordSet[i] = wordSet[i];
 						}
 					}
-					System.out.println("QUICK SORT");
+					
 					resetSortStatistics();
 					startTime = System.nanoTime();
 					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
@@ -215,13 +208,13 @@ public class AS3 {
 					int sortSelection = inConsole.nextInt();
 					switch (sortSelection) {
 						case 1:	
+							System.out.println("SELECTION SORT");
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 								for (int i = 0; i < uniqueWordCount; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
-							System.out.println("SELECTION SORT");
 							resetSortStatistics();
 							startTime = System.nanoTime();
 							selectionSort();
@@ -231,13 +224,14 @@ public class AS3 {
 							printSortedWordSet();
 						break;
 						case 2:
+							System.out.println("INSERTION SORT");
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 								for (int i = 0; i < uniqueWordCount; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
-							System.out.println("INSERTION SORT");
+							
 							resetSortStatistics();
 							startTime = System.nanoTime();
 							insertionSort();
@@ -247,13 +241,14 @@ public class AS3 {
 							printSortedWordSet();
 						break;
 						case 3:
+							System.out.println("BUBBLE SORT");
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 								for (int i = 0; i < uniqueWordCount; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
-							System.out.println("BUBBLE SORT");
+							
 							resetSortStatistics();
 							startTime = System.nanoTime();
 							bubbleSort();
@@ -263,13 +258,14 @@ public class AS3 {
 							printSortedWordSet();
 						break;
 						case 4:
+							System.out.println("MERGE SORT");
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 								for (int i = 0; i < uniqueWordCount; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
-							System.out.println("MERGE SORT");
+							
 							resetSortStatistics();
 							startTime = System.nanoTime();
 							mergeSort(sortedWordSet);
@@ -279,13 +275,14 @@ public class AS3 {
 							printSortedWordSet();
 						break;
 						case 5:
+							System.out.println("QUICK SORT");
 							if (sorted) {
 								// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
 								for (int i = 0; i < uniqueWordCount; i++) {
 									sortedWordSet[i] = wordSet[i];
 								}
 							}
-							System.out.println("QUICK SORT");
+							
 							resetSortStatistics();
 							startTime = System.nanoTime();
 							quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
@@ -613,8 +610,9 @@ public class AS3 {
 	
 	public static void printSortedWordSet() {
 		for (int i = 0; i < sortedWordSet.length; i++) {
-			System.out.println(sortedWordSet[i].getWord());
+			System.out.print(sortedWordSet[i].getWord() + " ");
 		}
+		System.out.println();
 	}
 	
 	public static void resetSortStatistics() {
@@ -641,6 +639,32 @@ public class AS3 {
 		System.out.println("Comparisons: " + comparisonCount);
 		System.out.println("Duration: " + duration + " nanoseconds");
 		System.out.println();
+	}
+	
+	public static void sortProcedure(String inSortName, Word[] inSet) {
+		if (sorted) {
+			// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
+			for (int i = 0; i < sortedWordSet.length; i++) {
+				sortedWordSet[i] = inSet[i];
+			}
+		}
+		
+		resetSortStatistics();
+		startTime = System.nanoTime();
+		if (inSortName.equals("selection")) {
+			selectionSort();
+		} else if (inSortName.equals("insertion")) {
+			insertionSort();
+		} else if (inSortName.equals("bubble")) {
+			bubbleSort();
+		} else if (inSortName.equals("merge")) {
+			mergeSort(sortedWordSet);
+		} else if (inSortName.equals("quick")) {
+			quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
+		}
+		endTime = System.nanoTime();
+		duration = endTime - startTime;
+		printSortStatistics();
 	}
 	
 	public static void searchProcedure(String inSearchName) {
