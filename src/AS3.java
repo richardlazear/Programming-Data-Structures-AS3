@@ -22,6 +22,7 @@ public class AS3 {
 	public static void main(String[] args) throws FileNotFoundException {
 		// Program introduction for the user
 		System.out.println("Welcome to AS3!");
+		System.out.println("This program will read in a specified file, counting the number of times each word occurs in the file.");
 		// TODO: add some more information for the user here
 		System.out.println("---------------------------------------------");
 		// End program introduction
@@ -145,11 +146,28 @@ public class AS3 {
 					// End quick sort
 				break;
 				case 2:
+					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
+					
 					System.out.println("---------Search Method Results---------");
+					
+					System.out.println("What string would you like to search for?");
+					System.out.println("Your entry: ");
+					String toFind = inConsole.next();
 					
 					// Start linear search
 					System.out.println("LINEAR SEARCH");
-					searchProcedure("linear");
+					searchProcedure("linear", toFind);
+					// End linear search
+					
+					// Start binary search
+					System.out.println("BINARY SEARCH");
+					searchProcedure("binary", toFind);
+					// End binary search
+					
+					// Start quadratic search
+					System.out.println("QUADRATIC SEARCH");
+					searchProcedure("quadratic", toFind);
+					// End quadratic search
 				break;
 				case 3:
 					System.out.println("-------Choose a Sort-------");
@@ -196,18 +214,30 @@ public class AS3 {
 					int searchSelection = inConsole.nextInt();
 					switch (searchSelection) {
 						case 1:
-							searchProcedure("linear");
+							System.out.println("What string would you like to search for?");
+							System.out.println("Your entry: ");
+							toFind = inConsole.next();
+							System.out.println("LINEAR SEARCH");
+							searchProcedure("linear", toFind);
 						break;
 						case 2:
 							if (sorted) {
-								searchProcedure("binary");
+								System.out.println("What string would you like to search for?");
+								System.out.println("Your entry: ");
+								toFind = inConsole.next();
+								System.out.println("BINARY SEARCH");
+								searchProcedure("binary", toFind);
 							} else {
 								System.out.println("Please go back and sort the array before running a binary search.");
 							}
 						break;
 						case 3:
 							if (sorted) {
-								searchProcedure("quadratic");
+								System.out.println("What string would you like to search for?");
+								System.out.println("Your entry: ");
+								toFind = inConsole.next();
+								System.out.println("QUADRATIC SEARCH");
+								searchProcedure("quadratic", toFind);
 							} else {
 								System.out.println("Please go back and sort the array before running a binary search.");
 							}
@@ -451,13 +481,11 @@ public class AS3 {
 		
 		while (wordToFind.compareTo(sortedWordSet[high].getWord()) > 0) {
 			comparisonCount++;
-			/* System.out.println("high old is < sortedNumberSet.length; high = " + high); */
 			if (high + range > sortedWordSet.length - 1) {
 				high = sortedWordSet.length - 1;
 			} else {
 				high = high + range;
 			}
-			/* System.out.println("high new is < sortedNumberSet.length; high = " + high); */
 		}
 		comparisonCount++;
 		
@@ -551,28 +579,26 @@ public class AS3 {
 		System.out.println();
 	}
 	
-	public static void searchProcedure(String inSearchName) {
+	public static void searchProcedure(String inSearchName, String inToFind) {
 		// Reset search statistics
 		comparisonCount = 0;
 		startTime = 0; // TODO: make sure these are actually reset
 		endTime = 0;
 		
 		// TODO: add comment here
-		System.out.println("What string would you like to search for?");
-		System.out.println("Your entry: ");
-		String toFind = inConsole.next();
+		
 		int searchResult = 0; // TODO: check if this causes problems
 		if (inSearchName.equals("linear")) {
 			startTime = System.nanoTime();
-			searchResult = linearSearch(toFind);
+			searchResult = linearSearch(inToFind);
 			endTime = System.nanoTime();
 		} else if (inSearchName.equals("binary")) {
 			startTime = System.nanoTime();
-			searchResult = binarySearch(toFind);
+			searchResult = binarySearch(inToFind);
 			endTime = System.nanoTime();
 		} else if (inSearchName.equals("quadratic")) {
 			startTime = System.nanoTime();
-			searchResult = quadraticSearch(toFind);
+			searchResult = quadraticSearch(inToFind);
 			endTime = System.nanoTime();
 		}
 		
@@ -587,8 +613,8 @@ public class AS3 {
 		}
 		
 		// Print search statistics
-		System.out.println("Comparisons: " + comparisonCount);
-		System.out.println("   Duration: " + duration + " nanoseconds");
+		System.out.println("   Comparisons: " + comparisonCount);
+		System.out.println("      Duration: " + duration + " nanoseconds");
 		System.out.println();
 	}
 }
