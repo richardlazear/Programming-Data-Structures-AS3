@@ -114,6 +114,7 @@ public class AS3 {
 			System.out.println("5. Quit");
 			System.out.print("Your selection: ");
 			menuSelection = inConsole.nextInt();
+			System.out.println();
 			switch (menuSelection) {
 				case 1:
 					System.out.println("----------Sort Method Results----------");
@@ -144,7 +145,11 @@ public class AS3 {
 					// End quick sort
 				break;
 				case 2:
+					System.out.println("---------Search Method Results---------");
 					
+					// Start linear search
+					System.out.println("LINEAR SEARCH");
+					searchProcedure("linear");
 				break;
 				case 3:
 					System.out.println("-------Choose a Sort-------");
@@ -499,18 +504,6 @@ public class AS3 {
 		}
 		System.out.println();
 	}
-		
-	public static void resetSearchStatistics() {
-		comparisonCount = 0;
-		startTime = 0; // TODO: make sure these are actually reset
-		endTime = 0;
-	}
-	
-	public static void printSearchStatistics() {
-		System.out.println("Comparisons: " + comparisonCount);
-		System.out.println("Duration: " + duration + " nanoseconds");
-		System.out.println();
-	}
 	
 	public static void sortProcedure(String inSortName, Word[] inSet) {
 		if (sorted) {
@@ -559,24 +552,43 @@ public class AS3 {
 	}
 	
 	public static void searchProcedure(String inSearchName) {
-		resetSearchStatistics();
+		// Reset search statistics
+		comparisonCount = 0;
+		startTime = 0; // TODO: make sure these are actually reset
+		endTime = 0;
+		
+		// TODO: add comment here
 		System.out.println("What string would you like to search for?");
 		System.out.println("Your entry: ");
 		String toFind = inConsole.next();
 		int searchResult = 0; // TODO: check if this causes problems
 		if (inSearchName.equals("linear")) {
+			startTime = System.nanoTime();
 			searchResult = linearSearch(toFind);
+			endTime = System.nanoTime();
 		} else if (inSearchName.equals("binary")) {
+			startTime = System.nanoTime();
 			searchResult = binarySearch(toFind);
+			endTime = System.nanoTime();
 		} else if (inSearchName.equals("quadratic")) {
+			startTime = System.nanoTime();
 			searchResult = quadraticSearch(toFind);
+			endTime = System.nanoTime();
 		}
 		
+		long duration = endTime - startTime;
+		
+		// Print out the results of the search
 		if (searchResult > -1) {
-			System.out.println("The string was found in the array at index " + searchResult + ".  It appeared in the file " + sortedWordSet[searchResult].getCount() + " times.");
+			System.out.println("Index Location: " + searchResult);
+			System.out.println("   Occurrences: " + sortedWordSet[searchResult].getCount());
 		} else {
 			System.out.println("Sorry, that string is not in the array.");
 		}
-		printSearchStatistics();
+		
+		// Print search statistics
+		System.out.println("Comparisons: " + comparisonCount);
+		System.out.println("   Duration: " + duration + " nanoseconds");
+		System.out.println();
 	}
 }
