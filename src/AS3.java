@@ -1,10 +1,19 @@
 /************************************************************************************************************************************************************
  Richie Lazear
  AS3
- Due Date
+ December 8, 2014
  Mr. Ritter
  
- TODO: description of program goes here
+ This program reads in words from either a small or large text file into an array and tracks the number of times each word appears in the file.  It then
+ provides the user the choice to see a comparison of sort algorithms (selection, insertion, bubble, merge, and quick), a comparison of search algorithms
+ (linear, binary, and quadratic), or to run a single sort or search.  The program prints out data for each sort or search, including the number of
+ comparisons, swaps, time, index location, and occurrences (where applicable).
+ 
+ There are two classes in this program: the main class and the Word class.  The word class is an object with a field for a string (the word that is read in
+ from the file)and a field for and integer (the number of occurrences of the corresponding word).
+ 
+ The primary methods in this program are the sort (selection, insertion, bubble, merge, quick) and search (linear, binary, quadratic).  Other methods are
+ helpers in the program to reduce redundant code.
  ************************************************************************************************************************************************************/
 
 import java.io.File;
@@ -152,9 +161,7 @@ public class AS3 {
 						printProgressionLines = true;
 					}
 				break;
-				case 2:
-					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
-					
+				case 2:	
 					System.out.println("---------Search Method Results---------");
 					
 					System.out.println("What string would you like to search for?");
@@ -279,10 +286,10 @@ public class AS3 {
 			comparisonCount++;
 			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) { // Compares the "minimum" word to the word at the current index
 				// Swap the two words
+				swapCount++;
 				Word temp = sortedWordSet[i];
 				sortedWordSet[i] = sortedWordSet[minIndex];
 				sortedWordSet[minIndex] = temp;
-				swapCount++;
 			} else {
 				break;
 			}
