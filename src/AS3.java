@@ -24,14 +24,13 @@ public class AS3 {
 		// Program introduction for the user
 		System.out.println("Welcome to AS3!");
 		System.out.println("This program will read in a specified file, counting the number of times each word occurs in the file.");
-		// TODO: add some more information for the user here
+		System.out.println("You will then be able to see a comparison of sorts or searches on the array, or choose an individual sort or search.");
 		System.out.println("---------------------------------------------");
 		// End program introduction
 		
 		// Set up the proper file, as chosen by the user		
 		Scanner inFile = null;
 		inConsole = new Scanner(System.in);
-		// TODO: bounds check this for int
 		int fileSelection;
 		do {
 			System.out.println("Please choose which file you want to read in.");
@@ -128,7 +127,7 @@ public class AS3 {
 					System.out.println("SELECTION SORT");
 					sortProcedure("selection", wordSet);
 					// End selection sort
-					
+
 					// Start insertion sort
 					System.out.println("INSERTION SORT");
 					sortProcedure("insertion", wordSet);
@@ -148,6 +147,10 @@ public class AS3 {
 					System.out.println("QUICK SORT");
 					sortProcedure("quick", wordSet);
 					// End quick sort
+					
+					if (fileSelection == 1) {
+						printProgressionLines = true;
+					}
 				break;
 				case 2:
 					quickSort(sortedWordSet, 0, sortedWordSet.length - 1);
@@ -283,6 +286,9 @@ public class AS3 {
 			} else {
 				break;
 			}
+			if (printProgressionLines) {
+				printSortedWordSet();
+			}
 		}
 		sorted = true;
 	}
@@ -302,6 +308,9 @@ public class AS3 {
 				j--;
 			}
 			comparisonCount++;
+			if (printProgressionLines) {
+				printSortedWordSet();
+			}
 		}
 		sorted = true;
 	}
@@ -324,6 +333,9 @@ public class AS3 {
 			}
 			if (swapped == false) { // If nothing for this run through the loop has been swapped, then the array is already in order, so the loop can end.
 				break;
+			}
+			if (printProgressionLines) {
+				printSortedWordSet();
 			}
 		}
 		sorted = true;
@@ -362,6 +374,8 @@ public class AS3 {
 	public static void merge(Word[] inLeftArray, Word[] inRightArray, Word[] inSet) {
 		// This method is based off of: https://www.youtube.com/watch?v=TzeBrDU-JaY
 		
+		System.out.println();
+		
 		int nLeft = inLeftArray.length;
 		int nRight = inRightArray.length;
 		int l = 0; // Represents the current index location in the left array
@@ -398,6 +412,13 @@ public class AS3 {
 			i++;
 			r++;
 		}
+		
+		// Print progression lines
+		if (printProgressionLines) {
+			for (int z = 0; z < inSet.length; z++) {
+				System.out.print(inSet[z].getWord() + " ");
+			}
+		}
 	}
 	
 	// Main method for quick sort 
@@ -433,6 +454,14 @@ public class AS3 {
 		inSet[partitionIndex] = inSet[end];
 		inSet[end] = temp;
 		swapCount++;
+		
+		// Print progression lines
+		if (printProgressionLines) {
+			for (int i = 0; i < inSet.length; i++) {
+				System.out.print(inSet[i].getWord() + " ");
+			}
+			System.out.println();
+		}
 		
 		return partitionIndex;
 	}
