@@ -374,8 +374,6 @@ public class AS3 {
 	public static void merge(Word[] inLeftArray, Word[] inRightArray, Word[] inSet) {
 		// This method is based off of: https://www.youtube.com/watch?v=TzeBrDU-JaY
 		
-		System.out.println();
-		
 		int nLeft = inLeftArray.length;
 		int nRight = inRightArray.length;
 		int l = 0; // Represents the current index location in the left array
@@ -418,6 +416,7 @@ public class AS3 {
 			for (int z = 0; z < inSet.length; z++) {
 				System.out.print(inSet[z].getWord() + " ");
 			}
+			System.out.println();
 		}
 	}
 	
