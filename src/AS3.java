@@ -13,11 +13,12 @@ import java.util.Scanner;
 
 public class AS3 {
 	// Instance Fields
-	private static Scanner inConsole;
-	private static Word[] sortedWordSet;
-	private static boolean sorted = false;
-	private static long startTime, endTime;
-	private static int comparisonCount, swapCount;
+	private static Scanner inConsole; // Reads user input from the console
+	private static Word[] sortedWordSet; // TODO: add comment
+	private static boolean sorted = false; // Keeps track of whether the above array is sorted so that the program does not try to sort an already-sorted array
+	private static long startTime, endTime; // Long numbers to track the execution time of the sort and search methods
+	private static int comparisonCount, swapCount; // Integers to keep track of the number of comparisons and swaps done in sorts and searches
+	private static boolean printProgressionLines; // Determines whether or not progression lines should be printed during a sort method.  Determined by which file the user wants to read in.
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		// Program introduction for the user
@@ -42,10 +43,12 @@ public class AS3 {
 				case 1:
 					File AS3small = new File("As3Small.txt");
 					inFile = new Scanner(AS3small);
+					printProgressionLines = true;
 				break;
 				case 2:
 					File AS3large = new File("As3Large.txt");
 					inFile = new Scanner(AS3large);
+					printProgressionLines = false;
 				break;
 			}
 			System.out.println();
@@ -60,22 +63,22 @@ public class AS3 {
 		}
 		
 		// Read in the file
-		wordSet[0] = new Word(inFile.next());
-		int uniqueWordCount = 1;
+		wordSet[0] = new Word(inFile.next()); // Read in the very first word from the file, because it cannot be a duplicate
+		int uniqueWordCount = 1; // Keeps track of the number of unique (NOT total) words read in from the file
 		while (inFile.hasNext()) {
 			String word = inFile.next();
 			word = word.replaceAll("(?!-)\\p{Punct}", "").toLowerCase(); // Remove any punctuation (except single dashes) surrounding or in the string, then change all letters to lower case.
-			// TODO: explain this whole if statement
+			// The following if statement serves to separate and handle words joined by double dashes (long dashes)
 			if (word.contains("--")) {		
 				int firstDashIndex = word.indexOf("-");		
-				if (!word.endsWith("--")) {		
-					String doubleDashedWord = word.substring(firstDashIndex + 2);		
-					word = word.substring(0, firstDashIndex);			
+				if (!word.endsWith("--")) { // If the string contains, but does not end with, "--", do the following...	
+					String doubleDashedWord = word.substring(firstDashIndex + 2); // Make a substring of the second word		
+					word = word.substring(0, firstDashIndex); // Make a substring that is the first word without the dashes		
 							
-					int linearSearchResult = linearSearch_fillingArray(wordSet, doubleDashedWord, uniqueWordCount);		
-					if (linearSearchResult >= 0) {		
+					int linearSearchResult = linearSearch_fillingArray(wordSet, doubleDashedWord, uniqueWordCount);	// Search the array for the second word		
+					if (linearSearchResult >= 0) { // If the second word is found, increment its count
 						wordSet[linearSearchResult].addToCount();		
-					} else {		
+					} else { // If the second word is not found, add a corresponding new Word object to the array
 						wordSet[uniqueWordCount] = new Word(doubleDashedWord);		
 						uniqueWordCount++;		
 					}		
@@ -83,7 +86,7 @@ public class AS3 {
 					word = word.substring(0, word.length() - 2); // ... remove the ending dashes		
 				}		
 			}
-			int linearSearchResult = linearSearch_fillingArray(wordSet, word, uniqueWordCount);
+			int linearSearchResult = linearSearch_fillingArray(wordSet, word, uniqueWordCount); // Search the array for the first word
 			if (linearSearchResult >= 0) {
 				wordSet[linearSearchResult].addToCount();
 			} else {
@@ -93,16 +96,16 @@ public class AS3 {
 		}
 		// End reading in the file
 		
-		sortedWordSet = new Word[uniqueWordCount];
+		sortedWordSet = new Word[uniqueWordCount]; // Create a new array that is exactly the length of the unique word count, for efficiency
 		for (int i = 0; i < uniqueWordCount; i++) {
 			sortedWordSet[i] = wordSet[i];
 		}
-		for (int i = 0; i < uniqueWordCount; i++) {
+		/*for (int i = 0; i < uniqueWordCount; i++) {
 			System.out.println(sortedWordSet[i].getWord() + " -count: " + sortedWordSet[i].getCount());
-		}
+		}*/
 		
-		System.out.println();
-		System.out.println("uniqueWordCount: " + uniqueWordCount);
+		// System.out.println();
+		// System.out.println("uniqueWordCount: " + uniqueWordCount);
 		
 		int menuSelection = 0;
 		do {
@@ -118,6 +121,7 @@ public class AS3 {
 			System.out.println();
 			switch (menuSelection) {
 				case 1:
+					printProgressionLines = false;
 					System.out.println("----------Sort Method Results----------");
 					
 					// Start selection sort
@@ -257,9 +261,10 @@ public class AS3 {
 	
 	// Method for Selection Sort
 	public static void selectionSort() {	
-		int minIndex = 0;
+		int minIndex = 0; // Represents the index of the alphabetically least word in the array
 		for (int i = 0; i < sortedWordSet.length - 1; i++) {
 			minIndex = i;
+			// This for loop goes through the array to find the "minimum" word
 			for (int j = i + 1; j < sortedWordSet.length; j++) {
 				String toCompareJ = sortedWordSet[j].getWord();
 				comparisonCount++;
@@ -269,7 +274,8 @@ public class AS3 {
 			}
 
 			comparisonCount++;
-			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) {
+			if (sortedWordSet[minIndex].getWord().compareTo(sortedWordSet[i].getWord()) < 0) { // Compares the "minimum" word to the word at the current index
+				// Swap the two words
 				Word temp = sortedWordSet[i];
 				sortedWordSet[i] = sortedWordSet[minIndex];
 				sortedWordSet[minIndex] = temp;
@@ -287,25 +293,28 @@ public class AS3 {
 			String valueToSort = sortedWordSet[i].getWord();
 			int j = i;
 			while (j > 0 && sortedWordSet[j - 1].getWord().compareTo(valueToSort) > 0) {
-				comparisonCount++; // TODO: check if you need to add 1 or 2 comparisons outside of the while loop
+				comparisonCount++;
+				// Swap the two words
 				Word temp = sortedWordSet[j];
 				sortedWordSet[j] = sortedWordSet[j - 1];
 				sortedWordSet[j - 1] = temp;
 				swapCount++;
 				j--;
 			}
-			comparisonCount++; // TODO: add comment
+			comparisonCount++;
 		}
 		sorted = true;
 	}
 	
+	// Method for bubble sort
 	public static void bubbleSort() {
 		boolean swapped;
 		for (int i = sortedWordSet.length - 1; i >= 0; i--) {
 			swapped = false;
 			for (int j = 0; j < i; j++) {
 				comparisonCount++;
-				if (sortedWordSet[j].getWord().compareTo(sortedWordSet[j + 1].getWord()) > 0) {
+				if (sortedWordSet[j].getWord().compareTo(sortedWordSet[j + 1].getWord()) > 0) { // Compare the word at index j to the word directly following it
+					// Swap the two words
 					Word temp = sortedWordSet[j];
 					sortedWordSet[j] = sortedWordSet[j + 1];
 					sortedWordSet[j + 1] = temp;
@@ -320,8 +329,9 @@ public class AS3 {
 		sorted = true;
 	}
 	
+	// Main method for merge sort
 	public static void mergeSort(Word[] inSet) {
-		// https://www.youtube.com/watch?v=TzeBrDU-JaY
+		// This method is based off of: https://www.youtube.com/watch?v=TzeBrDU-JaY
 		
 		int n = inSet.length;
 		// Base case
@@ -329,9 +339,10 @@ public class AS3 {
 			return;
 		}
 		int mid = n / 2; // Defines the index of the midpoint of the parent array
-		// Create and fill the child arrays
+		// Create the child arrays
 		Word[] leftArray = new Word[mid];
 		Word[] rightArray = new Word[n - mid];
+		// Fill the child arrays
 		for (int i = 0; i < mid; i++) {
 			leftArray[i] = inSet[i];
 		}
@@ -347,8 +358,9 @@ public class AS3 {
 		sorted = true;
 	}
 	
+	// Helper method for merge sort
 	public static void merge(Word[] inLeftArray, Word[] inRightArray, Word[] inSet) {
-		// https://www.youtube.com/watch?v=TzeBrDU-JaY
+		// This method is based off of: https://www.youtube.com/watch?v=TzeBrDU-JaY
 		
 		int nLeft = inLeftArray.length;
 		int nRight = inRightArray.length;
@@ -357,20 +369,20 @@ public class AS3 {
 		int i = 0; // Represents the current index location in the 'inSet' array
 		while (l < nLeft && r < nRight) {
 			comparisonCount++;
-			if (inLeftArray[l].getWord().compareTo(inRightArray[r].getWord()) < 0) {
+			if (inLeftArray[l].getWord().compareTo(inRightArray[r].getWord()) < 0) { // The current word from the left array is alphabetically less than the current word from the right array
 				comparisonCount++;
 				inSet[i] = inLeftArray[l];
 				l++; // Move to the next spot in the left array
-			} else if (inLeftArray[l].getWord().equals(inRightArray[r].getWord())) {
+			} else if (inLeftArray[l].getWord().equals(inRightArray[r].getWord())) { // Both words are alphabetically equal
 				comparisonCount++;
 				inSet[i] = inLeftArray[l];
 				i++;
 				l++;
 				inSet[i] = inRightArray[r];
 				r++;
-			} else {
+			} else { // The current word from the right array is alphabetically less than the current word from the right array
 				inSet[i] = inRightArray[r];
-				swapCount++; // TODO: check if this is correct
+				swapCount++;
 				r++; // Move to the next spot in the right array;
 			}
 			i++; // Move to the next spot in the complete array
@@ -388,8 +400,9 @@ public class AS3 {
 		}
 	}
 	
+	// Main method for quick sort 
 	public static void quickSort(Word[] inSet, int start, int end) {
-		// https://www.youtube.com/watch?v=COk73cpQbFQ
+		// This method is based off of: https://www.youtube.com/watch?v=COk73cpQbFQ
 		if (start < end) {
 			int partitionIndex = quickPartition(inSet, start, end);
 			quickSort(inSet, start, partitionIndex - 1);
@@ -399,24 +412,27 @@ public class AS3 {
 		}
 	}
 	
+	// Helper method for quick sort
 	public static int quickPartition(Word[] inSet, int start, int end) {
-		// https://www.youtube.com/watch?v=COk73cpQbFQ
+		// This method is based off of: https://www.youtube.com/watch?v=COk73cpQbFQ
 		String pivot = inSet[end].getWord();
 		int partitionIndex = start;
 		for (int i = start; i < end; i++) {
 			comparisonCount++;
 			if (inSet[i].getWord().compareTo(pivot) < 0){
+				// Swap the two words
 				Word temp = inSet[partitionIndex];
 				inSet[partitionIndex] = inSet[i];
 				inSet[i] = temp;
-				swapCount++; // TODO: check if this is correct
+				swapCount++;
 				partitionIndex++;
 			}
 		}
+		// Swap the two words
 		Word temp = inSet[partitionIndex];
 		inSet[partitionIndex] = inSet[end];
 		inSet[end] = temp;
-		swapCount++; // TODO: check if this is correct
+		swapCount++;
 		
 		return partitionIndex;
 	}
@@ -449,6 +465,7 @@ public class AS3 {
 		int foundAtIndex = 0;
 		int low = 0;
 		int high = sortedWordSet.length - 1;
+		// Keep narrowing the range the method searches by halves
 		while (low <= high) {
 			int mid = (low + high) / 2;
 			int difference = sortedWordSet[mid].getWord().compareTo(wordToFind);
@@ -479,6 +496,7 @@ public class AS3 {
 		int range = (int) Math.sqrt(sortedWordSet.length);
 		int high = range;
 		
+		// Keep narrowing the range the method searches by the square root of the array's length
 		while (wordToFind.compareTo(sortedWordSet[high].getWord()) > 0) {
 			comparisonCount++;
 			if (high + range > sortedWordSet.length - 1) {
@@ -506,6 +524,7 @@ public class AS3 {
 		}
 	}
 	
+	// A specialty method used only while reading the file in to the wordSet array
 	public static int linearSearch_fillingArray(Word[] inSet, String wordToFind, int filledLength) {
 		boolean found = false;
 		int foundAtIndex = 0;
@@ -526,6 +545,7 @@ public class AS3 {
 		}
 	}
 	
+	// A method that simply prints out the sortedWordSet array
 	public static void printSortedWordSet() {
 		for (int i = 0; i < sortedWordSet.length; i++) {
 			System.out.print(sortedWordSet[i].getWord() + " ");
@@ -533,6 +553,8 @@ public class AS3 {
 		System.out.println();
 	}
 	
+	// A wrapper method for all of the tasks necessary before and after calling a sort
+	// I chose to make this a method on its own in order avoid redundant code
 	public static void sortProcedure(String inSortName, Word[] inSet) {
 		if (sorted) {
 			// Copy the original word set into a new array that will be sorted so that the original set's order is preserved
@@ -579,15 +601,16 @@ public class AS3 {
 		System.out.println();
 	}
 	
+	// A wrapper method for all of the tasks necessary before and after calling a search
+	// I chose to make this a method on its own in order avoid redundant code
 	public static void searchProcedure(String inSearchName, String inToFind) {
 		// Reset search statistics
 		comparisonCount = 0;
-		startTime = 0; // TODO: make sure these are actually reset
+		startTime = 0;
 		endTime = 0;
 		
-		// TODO: add comment here
-		
-		int searchResult = 0; // TODO: check if this causes problems
+		// Call the proper search
+		int searchResult = 0;
 		if (inSearchName.equals("linear")) {
 			startTime = System.nanoTime();
 			searchResult = linearSearch(inToFind);
